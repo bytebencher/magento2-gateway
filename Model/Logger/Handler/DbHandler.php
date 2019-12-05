@@ -1,0 +1,114 @@
+<?php
+/**
+ * Copyright © 2019 Studio Raz. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+
+namespace SR\Gateway\Model\Logger\Handler;
+
+use Magento\Framework\App\ResourceConnection;
+use Magento\Framework\DB\Adapter\AdapterInterface;
+use Monolog\Handler\AbstractProcessingHandler;
+use SR\Gateway\Api\Config\ConfigInterface;
+use SR\Gateway\Model\Config\Config;
+
+class DbHandler extends AbstractProcessingHandler
+{
+    /**
+     * It is used to determine whether Log data is stored into DB-Table. Flag.
+     */
+    const DB_LOG_HANDLER_FLAG = 'is_db_log';
+
+    /**
+     * @var ConfigInterface
+     */
+    private $config;
+
+    /**
+     * @var ResourceConnection
+     */
+    private $resource;
+
+    /**
+     * DbHandler constructor.
+     * @param ConfigInterface $config
+     * @param ResourceConnection $resource
+     * @param int $level
+     * @param bool $bubble
+     */
+    public function __construct(
+        ConfigInterface $config,
+        ResourceConnection $resource,
+        $level = \Monolog\Logger::DEBUG,
+        $bubble = true
+    ) {
+        $this->config = $config;
+
+        parent::__construct($level, $bubble);
+
+        $this->resource = $resource;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function isHandling(array $record)
+    {
+        // NOTE: check if the Module is active
+        if (!$this->config->getValue(Config::KEY_CONFIG_ACTIVE, Config::GROUP_PATH_GENERAL)) {
+            return false;
+        }
+
+        // NOTE: check if Level is applicable (default condition)
+        if (!parent::isHandling($record)) {
+            return false;
+        }
+
+        // NOTE: check if DB-Log functionality is active
+        if (!$this->config->getValue(Config::KEY_CONFIG_ACTIVE, Config::GROUP_PATH_LOG)) {
+            return false;
+        }
+
+        // NOTE: check if necessary flag is set in TRUE
+        return (bool)($record['context'][self::DB_LOG_HANDLER_FLAG] ?? null);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function write(array $record)
+    {
+        // TODO: Implement write() method.
+        //     just example was added (how it can be used)
+
+        // TODO: implement Injection to provide the functionality with needed Objects
+
+        $context = $record['context'];
+
+        /** @var \DateTime $datetime */
+        $datetime = $record['datetime'] ?? new \DateTime('now');
+
+        // FIXME: Currently, the light solution was implemented for quick Insert operation.
+
+//        $dbLogData = [
+//            LogInterface::TYPE_ID => $context[LogInterface::TYPE_ID] ?? null,
+//            LogInterface::ACTION_ID => $context[LogInterface::ACTION_ID] ?? null,
+//            LogInterface::REQUEST_TEXT => $context[LogInterface::REQUEST_TEXT] ?? null,
+//            LogInterface::RESPONSE_TEXT => $context[LogInterface::RESPONSE_TEXT] ?? null,
+//            LogInterface::CALLED_AT => $datetime->format('Y-m-d H:i:s'),
+//        ];
+
+        try {
+//            /** @var AdapterInterface $connection */
+//            $connection = $this->resource->getConnection(ResourceConnection::DEFAULT_CONNECTION);
+//
+//            $connection->insertOnDuplicate(
+//                $this->resource->getTableName(Log::ENTITY_DB_TABLE),
+//                $dbLogData,
+//                array_keys($dbLogData)
+//            );
+        } catch (\Exception $e) {
+            // TODO: implement logic to handle the Exception
+        }
+    }
+}

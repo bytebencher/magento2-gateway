@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  ~ Copyright © 2019 Studio Raz. All rights reserved.
+  ~ See LICENSE.txt for license details.
+  -->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <YOUR_SECTION_NAME>
+            <general>
+                <active>0</active>
+                <mode>2</mode><!-- @see: \SR\Gateway\Model\System\Config\Source\Mode  -->
+                <http_client>2</http_client><!-- @see: \SR\Gateway\Model\System\Config\Source\HttpClient  -->
+            </general>
+        </YOUR_SECTION_NAME>
+    </default>
+</config>

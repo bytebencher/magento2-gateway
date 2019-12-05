@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  ~ Copyright © 2019 Studio Raz. All rights reserved.
+  ~ See LICENSE.txt for license details.
+  -->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <!--
+            TODO: CUSTOMIZE the parameters
+                YOUR_TAB_NAME, YOUR_TAB_LABEL
+                or remove <tab/>
+        -->
+        <tab id="YOUR_TAB_NAME" translate="label" sortOrder="1000">
+            <label>YOUR_TAB_LABEL</label>
+        </tab>
+
+        <section id="YOUR_SECTION_NAME" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="0" showInStore="0">
+            <label>YOUR_SECTION_LABEL</label>
+            <tab>YOUR_TAB_ID</tab>
+            <resource>YOUR_MODULE::RESOURCE</resource>
+
+            <group id="general" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>General</label>
+
+                <field id="active" translate="label" sortOrder="100" type="select" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+
+                <field id="mode" type="select" translate="label" sortOrder="200" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Current Mode</label>
+                    <source_model>SR\Gateway\Model\System\Config\Source\Mode</source_model>
+                </field>
+
+                <field id="api_username_production" type="text" translate="label comment" sortOrder="300" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>API Username</label>
+                    <comment><![CDATA[For <strong>Production</strong> mode]]></comment>
+                    <depends>
+                        <field id="mode">1</field>
+                    </depends>
+                </field>
+                <field id="api_username_sandbox" type="text" translate="label comment" sortOrder="310" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>API Username</label>
+                    <comment><![CDATA[For <strong>Sandbox</strong> mode]]></comment>
+                    <depends>
+                        <field id="mode">0</field>
+                    </depends>
+                </field>
+
+                <field id="api_password_production" type="text" translate="label comment" sortOrder="400" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>API Password</label>
+                    <comment><![CDATA[For <strong>Production</strong> mode]]></comment>
+                    <depends>
+                        <field id="mode">1</field>
+                    </depends>
+                </field>
+                <field id="api_password_sandbox" type="text" translate="label comment" sortOrder="410" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>API Password</label>
+                    <comment><![CDATA[For <strong>Sandbox</strong> mode]]></comment>
+                    <depends>
+                        <field id="mode">0</field>
+                    </depends>
+                </field>
+
+                <field id="api_endpoint_production" type="text" translate="label comment" sortOrder="500" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>API Endpoint</label>
+                    <comment><![CDATA[For <strong>Production</strong> mode]]></comment>
+                    <depends>
+                        <field id="mode">1</field>
+                    </depends>
+                </field>
+                <field id="api_endpoint_sandbox" type="text" translate="label comment" sortOrder="510" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>API Endpoint</label>
+                    <comment><![CDATA[For <strong>Sandbox</strong> mode]]></comment>
+                    <depends>
+                        <field id="mode">2</field>
+                    </depends>
+                </field>
+
+                <field id="http_client" translate="label comment" type="select" sortOrder="600" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Http Client</label>
+                    <source_model>SR\Gateway\Model\System\Config\Source\HttpClient</source_model>
+                    <comment><![CDATA[Client to interact with External service. (SOAP, REST etc)]]></comment>
+                </field>
+
+                <field id="debug" translate="label comment" type="select" sortOrder="1900" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Debug</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[Write debug data into log file. /var/log/{modulename}.log]]></comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>
