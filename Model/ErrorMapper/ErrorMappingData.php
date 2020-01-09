@@ -18,11 +18,12 @@ class ErrorMappingData implements MessageMappingDataInterface
      * @var array
      */
     protected $mappings = [
-        '100' => 'SAMPLE of the error description.',
+        //'-100-' => 'SAMPLE of the error description.',
     ];
 
     /**
-     * ErrorMappingData constructor.
+     * ErrorMappingData constructor
+     *
      * @param array $mappings
      */
     public function __construct(array $mappings = [])
@@ -33,7 +34,7 @@ class ErrorMappingData implements MessageMappingDataInterface
     /**
      * @inheritDoc
      */
-    public function merge(array $mappings)
+    public function merge(array $mappings) : void
     {
         $this->mappings = array_replace_recursive($this->mappings, $mappings);
     }

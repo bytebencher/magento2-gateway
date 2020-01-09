@@ -24,12 +24,12 @@
             <group id="general" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="0" showInStore="0">
                 <label>General</label>
 
-                <field id="active" translate="label" sortOrder="100" type="select" showInDefault="1" showInWebsite="0" showInStore="0">
+                <field id="active" translate="label" sortOrder="100" type="select" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
                     <label>Enabled</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
 
-                <field id="mode" type="select" translate="label" sortOrder="200" showInDefault="1" showInWebsite="0" showInStore="0">
+                <field id="mode" type="select" translate="label" sortOrder="200" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
                     <label>Current Mode</label>
                     <source_model>SR\Gateway\Model\System\Config\Source\Mode</source_model>
                 </field>
@@ -49,9 +49,11 @@
                     </depends>
                 </field>
 
+                <!-- type="obscure" -->
                 <field id="api_password_production" type="text" translate="label comment" sortOrder="400" showInDefault="1" showInWebsite="0" showInStore="0">
                     <label>API Password</label>
                     <comment><![CDATA[For <strong>Production</strong> mode]]></comment>
+                    <!--<backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>-->
                     <depends>
                         <field id="mode">1</field>
                     </depends>

@@ -1,6 +1,6 @@
 {
     "name" : "studioraz/magento2-gateway",
-    "description" : "Magento 2 module to provide general Gateway functionality for external Serivces based on REST/SOAP API.",
+    "description" : "Magento 2 module to provide general Gateway functionality for external Services based on REST/SOAP API.",
     "type" : "magento2-module",
     "version": "1.0.0",
     "license": "MIT",
@@ -11,8 +11,8 @@
         }
     ],
     "require": {
-        "php": "~7.0|~7.1|~7.2",
-        "magento/framework": "*"
+        "php": "~7.1|~7.2",
+        "magento/framework": "~2.3"
     },
     "autoload": {
         "files": [

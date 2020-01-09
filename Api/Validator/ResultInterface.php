@@ -6,8 +6,6 @@
 
 namespace SR\Gateway\Api\Validator;
 
-use Magento\Framework\Phrase;
-
 /**
  * Interface ResultInterface
  * @package SR\Gateway\Api\Validator
@@ -24,7 +22,7 @@ interface ResultInterface
     /**
      * Returns list of fails description
      *
-     * @return Phrase[]
+     * @return array
      */
     public function getFailsDescription();
 
@@ -32,6 +30,7 @@ interface ResultInterface
      * Set the Fetched Data and convert it into ResultDataInterface
      *
      * @param ResultDataInterface|null $data
+     *
      * @return $this
      */
     public function setData($data = null);

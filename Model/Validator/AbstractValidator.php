@@ -26,7 +26,8 @@ abstract class AbstractValidator implements ValidatorInterface
 
     /**
      * AbstractValidator constructor.
-     * @param ResultInterfaceFactory $resultFactory
+     *
+     * @param ResultInterfaceFactory     $resultFactory
      * @param ResultDataInterfaceFactory $resultDataFactory
      */
     public function __construct(
@@ -41,6 +42,7 @@ abstract class AbstractValidator implements ValidatorInterface
      * Checks whether response valid or not
      *
      * @param array $rawResponse
+     *
      * @return boolean
      */
     abstract protected function isResponseValid(array $rawResponse);
@@ -48,10 +50,11 @@ abstract class AbstractValidator implements ValidatorInterface
     /**
      * Returns list of errors (Messages or corresponding Codes)
      *
-     * Note: put Error Codes into messages.
+     * NOTE: put Error Codes into messages.
      * @see \SR\Gateway\Model\ErrorMapper\ErrorMappingData to manage Mappings
      *
      * @param array $rawResponse
+     *
      * @return array
      */
     abstract protected function getErrorMessages(array $rawResponse);
@@ -60,6 +63,7 @@ abstract class AbstractValidator implements ValidatorInterface
      * Fetches and Returns data from raw response
      *
      * @param mixed $rawResponse Dataset of Response [also can contain some request data]
+     *
      * @return ResultDataInterface|null
      */
     abstract protected function fetchData($rawResponse);
@@ -88,8 +92,9 @@ abstract class AbstractValidator implements ValidatorInterface
     /**
      * Factory method
      *
-     * @param bool $isValid
+     * @param bool  $isValid
      * @param array $fails
+     *
      * @return ResultInterface
      */
     protected function createResult($isValid, array $fails = [])

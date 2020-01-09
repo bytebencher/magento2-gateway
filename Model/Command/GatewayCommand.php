@@ -146,26 +146,35 @@ class GatewayCommand implements CommandInterface
      * Throws an exception with mapped message or default error.
      *
      * @param ResultInterface $result
+     *
      * @throws CommandException
      */
     protected function processErrors(ResultInterface $result)
     {
         $messages = [];
 
-        /** @var Phrase $failPhrase */
-        foreach ($result->getFailsDescription() as $failPhrase) {
-            $message = $failPhrase->render();
+        foreach ($result->getFailsDescription() as $fail) {
+            $code = '';
+            $message = null;
+            $mapped = null;
 
-            // error messages mapper can be not configured if custom error messages handler does not exist.
-            if ($this->errorMessageMapper !== null) {
-                $mapped = (string) $this->errorMessageMapper->getMessage($message);
-                if (!empty($mapped)) {
-                    $messages[] = $mapped;
-                    $message = $mapped;
-                }
+            if (is_array($fail)) {
+                $code = (string)($fail['code'] ?? null);
+                $message = $fail['message'] ?? null;
+            } else {
+                $message = $fail instanceof Phrase ? $fail->getText() : $fail;
             }
 
-            $this->logger->debug(new Phrase('Gateway Error :: ' . $message));
+            // NOTE: map Message by Code if it is applicable
+            // NOTE: error messages mapper can be not configured if custom error messages handler does not exist.
+            if ($this->errorMessageMapper !== null) {
+                $mapped = (string) $this->errorMessageMapper->getMessage($code);
+                $mapped = $mapped === $code ? $fail : $mapped;
+            }
+
+            $messages[] = (new Phrase($mapped ?: $message))->render();
+
+            $this->logger->debug(new Phrase('Gateway Error :: %1', [$message]));
         }
 
         throw new CommandException(

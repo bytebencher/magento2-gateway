@@ -6,7 +6,6 @@
 
 namespace SR\Gateway\Model\ErrorMapper;
 
-use Magento\Framework\Phrase;
 use SR\Gateway\Api\ErrorMapper\ErrorMessageMapperInterface;
 use SR\Gateway\Api\ErrorMapper\MessageMappingDataInterface;
 
@@ -32,6 +31,6 @@ class ErrorMessageMapper implements ErrorMessageMapperInterface
     public function getMessage(string $code)
     {
         $message = $this->messageMapping->get($code);
-        return $message ? new Phrase($message) : null;
+        return $message ?: null;
     }
 }

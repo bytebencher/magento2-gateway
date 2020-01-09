@@ -6,21 +6,28 @@
 
 namespace SR\Gateway\Api\ErrorMapper;
 
+/**
+ * Interface MessageMappingDataInterface
+ *
+ * @package SR\Gateway\Api\ErrorMapper
+ */
 interface MessageMappingDataInterface
 {
     /**
      * Merge Message data to the object
      *
-     * @param array $mappings
+     * @param array $mappings List of Mappings for Messages Ex: ['{code}' => '{mapped-message}']
+     *
      * @return void
      */
-    public function merge(array $mappings);
+    public function merge(array $mappings): void;
 
     /**
      * Get Message value by key
      *
-     * @param string $key Message Code
-     * @param mixed $default Default Message in case Message-by-Code doesn't exist
+     * @param string $key     Message Code
+     * @param mixed  $default Default Message in case Message-by-Code doesn't exist
+     *
      * @return mixed
      */
     public function get($key, $default = null);
