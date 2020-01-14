@@ -117,7 +117,9 @@ class Rest implements ClientInterface
             $httpResponse = $clientAdapter->singleExec();
             if ($errorMessage = $clientAdapter->getError()) {
                 throw new ClientException(new Phrase('HTTP Adapter Error :: ' . $errorMessage));
-            } elseif (empty($httpResponse->getBody()) && !in_array($httpResponse->getStatusCode(), [200, 201])) {
+            }
+
+            if (empty($httpResponse->getBody()) && !in_array($httpResponse->getStatusCode(), [200, 201])) {
                 throw new ClientException(new Phrase('HTTP Adapter Error :: ' . $httpResponse->getStatusCode() . ' : ' . $httpResponse->getReasonPhrase()));
             }
 
