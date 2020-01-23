@@ -27,16 +27,26 @@ class ClientFactory implements ClientFactoryInterface
     protected $config;
 
     /**
+     * List of possible arguments which are passed into Client Adapter Object (on create instance)
+     *
+     * @var array
+     */
+    protected $clientArguments = [];
+
+    /**
      * ClientFactory constructor.
      * @param ObjectManagerInterface $objectManager
      * @param ConfigInterface $config
+     * @param array $clientArguments
      */
     public function __construct(
         ObjectManagerInterface $objectManager,
-        ConfigInterface $config
+        ConfigInterface $config,
+        array $clientArguments = []
     ) {
         $this->objectManager = $objectManager;
         $this->config = $config;
+        $this->clientArguments = $clientArguments;
     }
 
     /**
@@ -49,16 +59,10 @@ class ClientFactory implements ClientFactoryInterface
 
         switch ($httpClientCode) {
             case HttpClient::REST:
-                // TODO: use Create instead of Get if it is needed
-                // TODO: CURRENTLY IT IS IN TEST/DEBUG MODE
-                //return $this->objectManager->create(Rest::class, $arguments);
-                return $this->objectManager->get(Rest::class);
+                return $this->objectManager->create(Rest::class, $this->clientArguments);
 
             case HttpClient::SOAP:
-                // TODO: use Create instead of Get if it is needed
-                // TODO: CURRENTLY IT IS IN TEST/DEBUG MODE
-                //return $this->objectManager->create(Soap::class, $arguments);
-                return $this->objectManager->get(Soap::class);
+                return $this->objectManager->create(Soap::class, $this->clientArguments);
         }
 
         throw new ClientException(new Phrase('Http Client "%1" is invalid.', [$httpClientCode]));

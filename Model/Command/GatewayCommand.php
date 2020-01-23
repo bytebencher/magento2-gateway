@@ -98,6 +98,7 @@ class GatewayCommand implements CommandInterface
      */
     public function execute(array $commandSubject)
     {
+        $result = null;
         $transferO = null;
 
         try {
@@ -131,6 +132,10 @@ class GatewayCommand implements CommandInterface
                     $commandSubject,
                     $response
                 );
+            }
+
+            if ($result instanceof ResultInterface) {
+                return $result;
             }
         } catch (RequestBuilderException | TransferBuilderException | ResponseHandlerException | ClientException $e) {
             // NOTE: log method is executed before exception throwing

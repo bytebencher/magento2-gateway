@@ -32,6 +32,12 @@ abstract class AbstractClientBuilder implements BuilderInterface
     const KEY_CLIENT_HEADERS = 'client_headers';
 
     /**
+     * Http Client: request action (ex: Order, UpdateExpiry etc)
+     * API Endpoint url action-suffix (in REST) or SoapAction (in SOAP)
+     */
+    const KEY_REQUEST_ACTION = 'request_action';
+
+    /**
      * Http Client: request method
      */
     const KEY_REQUEST_METHOD = 'request_method';

@@ -25,6 +25,7 @@ class Config implements ConfigInterface
     const GROUP_PATH_CRON = 'cron';
     const GROUP_PATH_CUSTOMER = 'customer';
     const GROUP_PATH_EMAIL = 'email';
+    const GROUP_PATH_GATEWAY = 'gateway';
     const GROUP_PATH_GENERAL = 'general';
     const GROUP_PATH_LOG = 'log';
     const GROUP_PATH_ORDER = 'order';

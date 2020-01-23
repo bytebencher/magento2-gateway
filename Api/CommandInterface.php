@@ -15,6 +15,13 @@ use SR\Gateway\Exception\CommandException;
  */
 interface CommandInterface
 {
+    /**#@+
+     * Arguments for Command execution
+     */
+    public const ARGUMENT_CONFIG = 'config';// \SR\Gateway\Api\Config\ConfigInterface;
+    public const ARGUMENT_SUBJECT = 'subject';
+    /**#@- */
+
     /**
      * Executes command basing on business object
      *

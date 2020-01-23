@@ -16,6 +16,7 @@ class ObjectToArrayRestConverter implements ConverterInterface
     public function convert($response)
     {
         $decoded = json_decode($response, true);
-        return !is_null($decoded) ? $decoded : [];
+        //return $decoded !== null ? $decoded : [];
+        return $decoded ?? [];
     }
 }

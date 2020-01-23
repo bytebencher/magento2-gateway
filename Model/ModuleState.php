@@ -37,7 +37,7 @@ class ModuleState implements ModuleStateInterface
      */
     public function isActive($store = null)
     {
-        if (!is_null($this->forceActive)) {
+        if ($this->forceActive !== null) {
             return (bool)$this->forceActive;
         }
 

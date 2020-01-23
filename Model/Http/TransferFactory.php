@@ -44,6 +44,7 @@ class TransferFactory extends AbstractTransferFactory
             $request[AbstractClientBuilder::KEY_API_ENDPOINT],
             $request[AbstractClientBuilder::KEY_CLIENT_CONFIG],
             $request[AbstractClientBuilder::KEY_CLIENT_HEADERS],
+            $request[AbstractClientBuilder::KEY_REQUEST_ACTION],
             $request[AbstractClientBuilder::KEY_REQUEST_METHOD],
             $request[AbstractClientBuilder::KEY_STORE_ID]
         );

@@ -13,6 +13,7 @@ use SR\Gateway\Api\Http\ConverterInterface;
 use SR\Gateway\Api\Http\TransferInterface;
 use SR\Gateway\Api\LoggerInterface;
 use SR\Gateway\Exception\ClientException;
+use SR\Gateway\Model\Request\ClientConfigBuilder;
 
 class Soap implements ClientInterface
 {
@@ -65,17 +66,26 @@ class Soap implements ClientInterface
         $response['object'] = [];
 
         try {
+            $wsdl = $transferObject->getClientConfig()[ClientConfigBuilder::PARAM_WSDL] ?? null;
+
             /** @var \SoapClient $clientAdapter */
-            $clientAdapter = $this->clientAdapterFactory->create($transferObject->getClientConfig()['wsdl'], [
-                'location' => $transferObject->getUri(),
-                'trace' => true,
-            ]);
+            $clientAdapter = $this->clientAdapterFactory->create($wsdl, ['trace' => true]);
+            // NOTE: URI of the WSDL file or NULL if working in non-WSDL mode.
 
-            $clientAdapter->__setSoapHeaders($transferObject->getHeaders());
+            if ($wsdl === null) {
+                // NOTE: set the endpoint URL that will be touched by following SOAP requests.
+                //     Calling this method is optional. The SoapClient uses the endpoint from the WSDL file by default.
+                $clientAdapter->__setLocation($transferObject->getUri());
+            }
 
-            $result = $clientAdapter->__soapCall($transferObject->getMethod(), [$transferObject->getBody()]);
+            $clientAdapter->__setSoapHeaders($this->buildSoapHeaders($transferObject));
 
-            if (!is_null($this->converter)) {
+            $result = $clientAdapter->__soapCall(
+                $transferObject->getClientConfig()[ClientConfigBuilder::PARAM_SOAP_FUNCTION_NAME],
+                [$transferObject->getBody()]
+            );
+
+            if ($this->converter !== null) {
                 $result = $this->converter->convert($result);
             }
 
@@ -89,15 +99,15 @@ class Soap implements ClientInterface
             // SoapFault exception could not be caught. It is always passed forward
             error_clear_last();
 
-            throw new ClientException(__($message));
+            throw new ClientException(new Phrase($message));
         } catch (\Exception $e) {
             $message = $e->getMessage() ?: 'Sorry, but something went wrong';
             $this->logger->critical($message);
             throw new ClientException(new Phrase($message), $e);
         } finally {
-            if (isset($client)) {
-                $log['last_request'] = $client->__getLastRequest();
-                $log['last_response'] = $client->__getLastResponse();
+            if (isset($clientAdapter)) {
+                $response['last_request'] = $clientAdapter->__getLastRequest();
+                $response['last_response'] = $clientAdapter->__getLastResponse();
 
                 $log['response'] = $response['last_response'];
                 $this->logger->debug($log);
@@ -105,5 +115,27 @@ class Soap implements ClientInterface
         }
 
         return $response;
+    }
+
+    /**
+     * Returns list of applicable SOAP Headers
+     *
+     * @param TransferInterface $transferObject
+     *
+     * @return \SoapHeader[]|null
+     */
+    protected function buildSoapHeaders(TransferInterface $transferObject)
+    {
+        $headers = null;
+
+        $clientConfig = $transferObject->getClientConfig();
+        if (!isset($clientConfig[ClientConfigBuilder::PARAM_SOAP_HEADERS])) {
+            return $headers;
+        }
+
+        // TODO: implement logic to build Soap Headers when it is needed
+        // see: https://www.php.net/manual/en/class.soapheader.php
+
+        return $headers;
     }
 }
