@@ -127,7 +127,7 @@ class GatewayCommand implements CommandInterface
                 }
             }
 
-            if ($this->handler) {
+            if ($this->handler !== null) {
                 $this->handler->handle(
                     $commandSubject,
                     $response

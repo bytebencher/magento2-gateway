@@ -17,8 +17,6 @@ class ObjectToArraySoapConverter implements ConverterInterface
     {
         $response = (array) $response;
         foreach ($response as $key => $value) {
-            //$response[$key] = $this->convert($value);
-
             if (is_object($value) || is_array($value)) {
                 $response[$key] = $this->convert($value);
             }
