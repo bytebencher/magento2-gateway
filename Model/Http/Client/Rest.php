@@ -14,6 +14,7 @@ use SR\Gateway\Api\LoggerInterface;
 use SR\Gateway\Exception\ClientException;
 use SR\Gateway\Model\Http\Adapter\CurlAdapter as ClientAdapter;
 use SR\Gateway\Model\Http\Adapter\CurlAdapterFactory as ClientAdapterFactory;
+use SR\Gateway\Model\Request\ClientConfigBuilder;
 use Zend\Http\Request as HttpRequest;
 use Zend\Http\Response as HttpResponse;
 
@@ -72,16 +73,7 @@ class Rest implements ClientInterface
             /** @var ClientAdapter $clientAdapter */
             $clientAdapter = $this->clientAdapterFactory->create();
 
-            if (!$transferObject->getAuthUsername() || !$transferObject->getAuthPassword()) {
-                throw new ClientException(new Phrase('API Credentials are invalid. Please check corresponding Configuration Parameters and try again'));
-            }
-
-            $clientAdapter->setConfig([
-                'userpwd' => $transferObject->getAuthUsername() . ':' . $transferObject->getAuthPassword(),
-                'timeout' => 60,
-                'verifypeer' => false,
-                'verifyhost' => false,
-            ]);
+            $clientAdapter->setConfig($this->buildConfig($transferObject));
 
             $clientAdapter->addOption(CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
             $clientAdapter->addOption(CURLINFO_HEADER_OUT, true);
@@ -140,5 +132,34 @@ class Rest implements ClientInterface
         }
 
         return $response;
+    }
+
+    /**
+     * Returns list of Config parameters
+     *
+     * @param TransferInterface $transferObject
+     *
+     * @return array
+     */
+    protected function buildConfig(TransferInterface $transferObject)
+    {
+        $config = array_replace_recursive(
+            // NOTE: Default Config Parameters for REST Request
+            [
+                'timeout' => 60,
+                'verifypeer' => false,
+                'verifyhost' => false,
+            ],
+
+            // NOTE: Custom Config Parameters
+            $transferObject->getClientConfig() ?: []
+        );
+
+        // NOTE: Add extra parameter , if Rest API Request uses Authorization
+        if ($transferObject->getAuthUsername() && $transferObject->getAuthPassword()) {
+            $config['userpwd'] = $transferObject->getAuthUsername() . ':' . $transferObject->getAuthPassword();
+        }
+
+        return $config;
     }
 }

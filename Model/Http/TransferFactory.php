@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright © 2019 Studio Raz. All rights reserved.
+ * Copyright © 2020 Studio Raz. All rights reserved.
  * See LICENSE.txt for license details.
  */
 
@@ -91,7 +91,7 @@ class TransferFactory extends AbstractTransferFactory
      */
     protected function addApiCredentials($request)
     {
-        if (isset($request[ApiCredentialsBuilder::KEY_API_CREDENTIALS])) {
+        if (!empty($request[ApiCredentialsBuilder::KEY_API_CREDENTIALS] ?? null)) {
             $this->transferBuilder->setAuthUsername($request[ApiCredentialsBuilder::KEY_API_CREDENTIALS][ApiCredentialsBuilder::API_USERNAME] ?? null);
             $this->transferBuilder->setAuthPassword($request[ApiCredentialsBuilder::KEY_API_CREDENTIALS][ApiCredentialsBuilder::API_PASSWORD] ?? null);
         }

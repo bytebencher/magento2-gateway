@@ -13,45 +13,45 @@ use SR\Gateway\Model\System\Config\Source\Mode as ApiMode;
 
 class Config implements ConfigInterface
 {
-    const EXT_ALIAS = 'srgateway';
+    public const EXT_ALIAS = 'srgateway';
 
     /**
      * Is used to init $this->pathPattern
      *
      * @var string
      */
-    const DEFAULT_PATH_PATTERN = self::EXT_ALIAS . '/%s/%s';
+    public const DEFAULT_PATH_PATTERN = self::EXT_ALIAS . '/%s/%s';
 
-    const GROUP_PATH_CRON = 'cron';
-    const GROUP_PATH_CUSTOMER = 'customer';
-    const GROUP_PATH_EMAIL = 'email';
-    const GROUP_PATH_GATEWAY = 'gateway';
-    const GROUP_PATH_GENERAL = 'general';
-    const GROUP_PATH_LOG = 'log';
-    const GROUP_PATH_ORDER = 'order';
-    const GROUP_PATH_PRODUCT = 'product';
+    public const GROUP_PATH_CRON = 'cron';
+    public const GROUP_PATH_CUSTOMER = 'customer';
+    public const GROUP_PATH_EMAIL = 'email';
+    public const GROUP_PATH_GATEWAY = 'gateway';
+    public const GROUP_PATH_GENERAL = 'general';
+    public const GROUP_PATH_LOG = 'log';
+    public const GROUP_PATH_ORDER = 'order';
+    public const GROUP_PATH_PRODUCT = 'product';
 
     /**
      * Is used to init $this->pathGroup
      *
      * @var string
      */
-    const DEFAULT_PATH_GROUP = self::GROUP_PATH_GENERAL;
+    public const DEFAULT_PATH_GROUP = self::GROUP_PATH_GENERAL;
 
     /**#@+
      * XML Config parts
      * ex: '{self::EXT_ALIAS}/{self::GROUP_PATH_...}/{KEY_CONFIG_...}'
      */
-    const KEY_CONFIG_ACTIVE = 'active';
-    const KEY_CONFIG_API_ENDPOINT_PRODUCTION = 'api_endpoint_production';
-    const KEY_CONFIG_API_ENDPOINT_SANDBOX = 'api_endpoint_sandbox';
-    const KEY_CONFIG_API_PASSWORD_PRODUCTION = 'api_password_production';
-    const KEY_CONFIG_API_PASSWORD_SANDBOX = 'api_password_sandbox';
-    const KEY_CONFIG_API_USERNAME_PRODUCTION = 'api_username_production';
-    const KEY_CONFIG_API_USERNAME_SANDBOX = 'api_username_sandbox';
-    const KEY_CONFIG_DEBUG = 'debug';
-    const KEY_CONFIG_HTTP_CLIENT = 'http_client';
-    const KEY_CONFIG_MODE = 'mode';
+    public const KEY_CONFIG_ACTIVE = 'active';
+    public const KEY_CONFIG_API_ENDPOINT_PRODUCTION = 'api_endpoint_production';
+    public const KEY_CONFIG_API_ENDPOINT_SANDBOX = 'api_endpoint_sandbox';
+    public const KEY_CONFIG_API_PASSWORD_PRODUCTION = 'api_password_production';
+    public const KEY_CONFIG_API_PASSWORD_SANDBOX = 'api_password_sandbox';
+    public const KEY_CONFIG_API_USERNAME_PRODUCTION = 'api_username_production';
+    public const KEY_CONFIG_API_USERNAME_SANDBOX = 'api_username_sandbox';
+    public const KEY_CONFIG_DEBUG = 'debug';
+    public const KEY_CONFIG_HTTP_CLIENT = 'http_client';
+    public const KEY_CONFIG_MODE = 'mode';
 
     /**#@- */
 
