@@ -166,6 +166,7 @@ class GatewayCommand implements CommandInterface
             if (is_array($fail)) {
                 $code = (string)($fail['code'] ?? null);
                 $message = $fail['message'] ?? null;
+                $fail = implode('::', $fail);
             } else {
                 $message = $fail instanceof Phrase ? $fail->getText() : $fail;
             }

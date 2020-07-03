@@ -31,6 +31,6 @@ class ErrorMessageMapper implements ErrorMessageMapperInterface
     public function getMessage(string $code)
     {
         $message = $this->messageMapping->get($code);
-        return $message ?: null;
+        return $message ?: $code;
     }
 }
