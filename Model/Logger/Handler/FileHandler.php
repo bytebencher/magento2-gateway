@@ -1,7 +1,7 @@
 <?php
-/**
- * Copyright © 2019 Studio Raz. All rights reserved.
- * See LICENSE.txt for license details.
+/*
+ * Copyright © 2022 Studio Raz. All rights reserved.
+ * See LICENCE file for license details.
  */
 
 namespace SR\Gateway\Model\Logger\Handler;
@@ -13,29 +13,21 @@ use SR\Gateway\Model\Config\Config;
 
 class FileHandler extends LoggerDebugHandler
 {
-    /**
-     * @var string
-     */
+    protected ConfigInterface  $config;
     protected $fileName = '/var/log/' . Config::EXT_ALIAS . '.log';
 
     /**
-     * @var ConfigInterface
-     */
-    protected $config;
-
-    /**
-     * FileHandler constructor.
      * @param DriverInterface $filesystem
      * @param ConfigInterface $config
-     * @param null $filePath
-     * @param null $fileName
+     * @param string|null $filePath
+     * @param string|null $fileName
      * @throws \Exception
      */
     public function __construct(
         DriverInterface $filesystem,
         ConfigInterface $config,
-        $filePath = null,
-        $fileName = null
+        ?string $filePath = null,
+        ?string $fileName = null
     ) {
         $this->config = $config;
 

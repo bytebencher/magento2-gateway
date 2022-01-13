@@ -1,7 +1,7 @@
 <?php
-/**
- * Copyright © 2019 Studio Raz. All rights reserved.
- * See LICENSE.txt for license details.
+/*
+ * Copyright © 2022 Studio Raz. All rights reserved.
+ * See LICENCE file for license details.
  */
 
 namespace SR\Gateway\Model\Logger\Handler;
@@ -14,18 +14,10 @@ use Symfony\Component\Console\Output\ConsoleOutput;
 
 class CliHandler extends AbstractProcessingHandler
 {
-    /**
-     * @var ConfigInterface
-     */
-    private $config;
+    private ConfigInterface $config;
+    private ConsoleOutput $consoleOutput;
 
     /**
-     * @var ConsoleOutput
-     */
-    private $consoleOutput;
-
-    /**
-     * CliHandler constructor.
      * @param ConfigInterface $config
      * @param ConsoleOutput $consoleOutput
      * @param int $level
@@ -34,8 +26,8 @@ class CliHandler extends AbstractProcessingHandler
     public function __construct(
         ConfigInterface $config,
         ConsoleOutput $consoleOutput,
-        $level = Logger::DEBUG,
-        $bubble = true
+        int $level = Logger::DEBUG,
+        bool $bubble = true
     ) {
         $this->config = $config;
         $this->consoleOutput = $consoleOutput;

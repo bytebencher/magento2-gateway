@@ -1,7 +1,7 @@
 <?php
-/**
- * Copyright © 2019 Studio Raz. All rights reserved.
- * See LICENSE.txt for license details.
+/*
+ * Copyright © 2022 Studio Raz. All rights reserved.
+ * See LICENCE file for license details.
  */
 
 namespace SR\Gateway\Api\ErrorMapper;
@@ -25,7 +25,7 @@ interface MessageMappingDataInterface
     /**
      * Get Message value by key
      *
-     * @param string $key     Message Code
+     * @param string|int $key Message Code
      * @param mixed  $default Default Message in case Message-by-Code doesn't exist
      *
      * @return mixed

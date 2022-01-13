@@ -1,7 +1,7 @@
 <?php
-/**
- * Copyright © 2019 Studio Raz. All rights reserved.
- * See LICENSE.txt for license details.
+/*
+ * Copyright © 2022 Studio Raz. All rights reserved.
+ * See LICENCE file for license details.
  */
 
 namespace SR\Gateway\Model\Http\Client\Converter;
@@ -13,9 +13,9 @@ class ObjectToArrayRestConverter implements ConverterInterface
     /**
      * @inheritDoc
      */
-    public function convert($response)
+    public function convert($response): array
     {
-        $decoded = json_decode($response, true);
+        $decoded = \Safe\json_decode($response, true);
         //return $decoded !== null ? $decoded : [];
         return $decoded ?? [];
     }

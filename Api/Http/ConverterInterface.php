@@ -1,7 +1,7 @@
 <?php
-/**
- * Copyright © 2019 Studio Raz. All rights reserved.
- * See LICENSE.txt for license details.
+/*
+ * Copyright © 2022 Studio Raz. All rights reserved.
+ * See LICENCE file for license details.
  */
 
 namespace SR\Gateway\Api\Http;
@@ -14,8 +14,10 @@ interface ConverterInterface
      * Converts gateway response to ENV structure
      *
      * @param mixed $response
+     *
      * @return array
+     *
      * @throws ConverterException
      */
-    public function convert($response);
+    public function convert($response): array;
 }

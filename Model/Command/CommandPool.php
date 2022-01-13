@@ -1,7 +1,7 @@
 <?php
-/**
- * Copyright © 2019 Studio Raz. All rights reserved.
- * See LICENSE.txt for license details.
+/*
+ * Copyright © 2022 Studio Raz. All rights reserved.
+ * See LICENCE file for license details.
  */
 
 namespace SR\Gateway\Model\Command;
@@ -37,7 +37,7 @@ class CommandPool implements CommandPoolInterface
     /**
      * @inheritDoc
      */
-    public function get($commandCode)
+    public function get(string $commandCode): CommandInterface
     {
         if (!isset($this->commands[$commandCode])) {
             throw new NotFoundException(new Phrase('Command %1 does not exist.', [$commandCode]));

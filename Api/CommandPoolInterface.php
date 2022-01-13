@@ -1,7 +1,7 @@
 <?php
-/**
- * Copyright © 2019 Studio Raz. All rights reserved.
- * See LICENSE.txt for license details.
+/*
+ * Copyright © 2022 Studio Raz. All rights reserved.
+ * See LICENCE file for license details.
  */
 
 namespace SR\Gateway\Api;
@@ -18,8 +18,10 @@ interface CommandPoolInterface
      * Retrieves operation
      *
      * @param string $commandCode
+     *
      * @return CommandInterface
+     *
      * @throws NotFoundException
      */
-    public function get($commandCode);
+    public function get(string $commandCode): CommandInterface;
 }

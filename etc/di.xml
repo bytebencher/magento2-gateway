@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!--
-  ~ Copyright © 2020 Studio Raz. All rights reserved.
-  ~ See LICENSE.txt for license details.
+  ~ Copyright © 2022 Studio Raz. All rights reserved.
+  ~ See LICENCE file for license details.
   -->
 
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
@@ -10,6 +10,9 @@
     <preference for="SR\Gateway\Api\Config\ConfigInterface" type="SR\Gateway\Model\Config\Config" />
     <preference for="SR\Gateway\Api\LoggerInterface" type="SR\Gateway\Model\Logger"/>
     <preference for="SR\Gateway\Api\ModuleStateInterface" type="SR\Gateway\Model\ModuleState"/>
+
+    <preference for="SR\Gateway\Model\GatewayAdapterFactoryInterface" type="SR\Gateway\Model\GatewayAdapterFactory" />
+    <preference for="SR\Gateway\Model\GatewayAdapterPoolInterface" type="SR\Gateway\Model\GatewayAdapterPool"/>
 
     <preference for="SR\Gateway\Api\CommandInterface" type="SR\Gateway\Model\Command\GatewayCommand" />
     <preference for="SR\Gateway\Api\CommandPoolInterface" type="SR\Gateway\Model\Command\CommandPool" />

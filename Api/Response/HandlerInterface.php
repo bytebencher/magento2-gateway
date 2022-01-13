@@ -1,7 +1,7 @@
 <?php
-/**
- * Copyright © 2019 Studio Raz. All rights reserved.
- * See LICENSE.txt for license details.
+/*
+ * Copyright © 2022 Studio Raz. All rights reserved.
+ * See LICENCE file for license details.
  */
 
 namespace SR\Gateway\Api\Response;
@@ -19,8 +19,10 @@ interface HandlerInterface
      *
      * @param array $handlingSubject
      * @param array $response
+     *
      * @return void
+     *
      * @throws ResponseHandlerException
      */
-    public function handle(array $handlingSubject, array $response);
+    public function handle(array $handlingSubject, array $response): void;
 }

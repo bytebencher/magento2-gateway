@@ -1,7 +1,7 @@
 <?php
-/**
- * Copyright © 2020 Studio Raz. All rights reserved.
- * See LICENSE.txt for license details.
+/*
+ * Copyright © 2022 Studio Raz. All rights reserved.
+ * See LICENCE file for license details.
  */
 
 namespace SR\Gateway\Model\Http;
@@ -21,7 +21,7 @@ class TransferFactory extends AbstractTransferFactory
     /**
      * @inheritDoc
      */
-    protected function prepareTransferBuilder(array $request = [])
+    protected function prepareTransferBuilder(array $request = []): self
     {
         $this->fetchStoreId($request);
 
@@ -37,7 +37,7 @@ class TransferFactory extends AbstractTransferFactory
     /**
      * @inheritDoc
      */
-    protected function cleanRequestSubject(array &$request = [])
+    protected function cleanRequestSubject(array &$request = []): self
     {
         unset(
             $request[AbstractClientBuilder::KEY_API_CREDENTIALS],
@@ -59,7 +59,7 @@ class TransferFactory extends AbstractTransferFactory
      * @param array $request
      * @return $this
      */
-    protected function fetchStoreId(array &$request)
+    protected function fetchStoreId(array $request): self
     {
         if (isset($request[AbstractClientBuilder::KEY_STORE_ID])) {
             $this->storeId = $request[AbstractClientBuilder::KEY_STORE_ID];
@@ -74,7 +74,7 @@ class TransferFactory extends AbstractTransferFactory
      * @param array $request
      * @return $this
      */
-    protected function addClientConfig($request)
+    protected function addClientConfig(array $request): self
     {
         if (isset($request[AbstractClientBuilder::KEY_CLIENT_CONFIG])) {
             $this->transferBuilder->setClientConfig($request[AbstractClientBuilder::KEY_CLIENT_CONFIG]);
@@ -89,7 +89,7 @@ class TransferFactory extends AbstractTransferFactory
      * @param array $request
      * @return $this
      */
-    protected function addApiCredentials($request)
+    protected function addApiCredentials(array $request): self
     {
         if (!empty($request[ApiCredentialsBuilder::KEY_API_CREDENTIALS] ?? null)) {
             $this->transferBuilder->setAuthUsername($request[ApiCredentialsBuilder::KEY_API_CREDENTIALS][ApiCredentialsBuilder::API_USERNAME] ?? null);
@@ -105,10 +105,10 @@ class TransferFactory extends AbstractTransferFactory
      * @param array $request
      * @return $this
      */
-    protected function addTransferMethod($request)
+    protected function addTransferMethod(array $request): self
     {
         if (isset($request[AbstractClientBuilder::KEY_REQUEST_METHOD])) {
-            $this->transferBuilder->setMethod($request[AbstractClientBuilder::KEY_REQUEST_METHOD]);
+            $this->transferBuilder->setMethod((string)$request[AbstractClientBuilder::KEY_REQUEST_METHOD]);
         }
 
         return $this;
@@ -120,10 +120,10 @@ class TransferFactory extends AbstractTransferFactory
      * @param array $request
      * @return $this
      */
-    protected function addTransferUri($request)
+    protected function addTransferUri(array $request): self
     {
         if (isset($request[AbstractClientBuilder::KEY_API_ENDPOINT])) {
-            $this->transferBuilder->setUri($request[AbstractClientBuilder::KEY_API_ENDPOINT]);
+            $this->transferBuilder->setUri((string)$request[AbstractClientBuilder::KEY_API_ENDPOINT]);
         }
 
         return $this;
@@ -135,7 +135,7 @@ class TransferFactory extends AbstractTransferFactory
      * @param array $request
      * @return $this
      */
-    protected function addClientHeaders($request)
+    protected function addClientHeaders(array $request): self
     {
         if (isset($request[AbstractClientBuilder::KEY_CLIENT_HEADERS])) {
             $this->transferBuilder->setHeaders($request[AbstractClientBuilder::KEY_CLIENT_HEADERS]);

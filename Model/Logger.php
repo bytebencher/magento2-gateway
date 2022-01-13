@@ -1,7 +1,7 @@
 <?php
-/**
- * Copyright © 2019 Studio Raz. All rights reserved.
- * See LICENSE.txt for license details.
+/*
+ * Copyright © 2022 Studio Raz. All rights reserved.
+ * See LICENCE file for license details.
  */
 
 namespace SR\Gateway\Model;
@@ -14,20 +14,12 @@ use SR\Gateway\Model\Logger\Handler\DbHandler;
 
 class Logger implements LoggerInterface
 {
-    const DEBUG_KEYS_MASK = '****';
+    public const DEBUG_KEYS_MASK = '****';
+
+    protected PsrLoggerInterface $logger;
+    protected ?ConfigInterface $config = null;
 
     /**
-     * @var PsrLoggerInterface
-     */
-    protected $logger;
-
-    /**
-     * @var ConfigInterface|null
-     */
-    protected $config;
-
-    /**
-     * Logger constructor.
      * @param PsrLoggerInterface $logger
      * @param ConfigInterface|null $config
      */
@@ -42,13 +34,13 @@ class Logger implements LoggerInterface
     /**
      * @inheritDoc
      */
-    public function debug($data, array $maskKeys = null, $forceDebug = null)
+    public function debug($data, array $maskKeys = null, ?bool $forceDebug = null): void
     {
         $debugOn = $forceDebug !== null ? $forceDebug : $this->isDebugOn();
         $isUsedForDbLog = (bool)(is_array($data) ? ($data[DbHandler::DB_LOG_HANDLER_FLAG] ?? null) : null);
 
         if ($debugOn === false && $isUsedForDbLog === false) {
-            return false;
+            return;
         }
 
         $message = $data;
@@ -69,47 +61,47 @@ class Logger implements LoggerInterface
         // NOTE: remove redundant key from Log Context
         unset($context['message']);
 
-        return $this->logger->debug($message, $context);
+        $this->logger->debug($message, $context);
     }
 
     /**
      * @inheritDoc
      */
-    public function critical($message, array $context = [])
+    public function critical(string $message, array $context = []): void
     {
-        return $this->logger->critical($message, $context);
+        $this->logger->critical($message, $context);
     }
 
     /**
      * @inheritDoc
      */
-    public function info($message, array $context = [])
+    public function info(string $message, array $context = []): void
     {
-        return $this->logger->info($message, $context);
+        $this->logger->info($message, $context);
     }
 
     /**
      * @inheritDoc
      */
-    public function error($message, array $context = [])
+    public function error(string $message, array $context = []): void
     {
-        return $this->logger->error($message, $context);
+        $this->logger->error($message, $context);
     }
 
     /**
      * @inheritDoc
      */
-    public function warning($message, array $context = [])
+    public function warning(string $message, array $context = []): void
     {
-        return $this->logger->warning($message, $context);
+        $this->logger->warning($message, $context);
     }
 
     /**
      * @inheritDoc
      */
-    public function notice($message, array $context = [])
+    public function notice(string $message, array $context = []): void
     {
-        return $this->logger->notice($message, $context);
+        $this->logger->notice($message, $context);
     }
 
     /**
@@ -117,7 +109,7 @@ class Logger implements LoggerInterface
      *
      * @return bool
      */
-    private function isDebugOn()
+    private function isDebugOn(): bool
     {
         return $this->config && (bool)$this->config->getValue(Config::KEY_CONFIG_DEBUG);
     }
@@ -127,7 +119,7 @@ class Logger implements LoggerInterface
      *
      * @return array
      */
-    private function getDebugReplaceFields()
+    private function getDebugReplaceFields(): array
     {
         if ($this->config && $this->config->getValue('debugReplaceKeys')) {
             return explode(',', $this->config->getValue('debugReplaceKeys'));
@@ -140,9 +132,10 @@ class Logger implements LoggerInterface
      *
      * @param array $debugData
      * @param array $debugReplacePrivateDataKeys
+     *
      * @return array
      */
-    protected function filterDebugData(array $debugData, array $debugReplacePrivateDataKeys)
+    protected function filterDebugData(array $debugData, array $debugReplacePrivateDataKeys): array
     {
         $debugReplacePrivateDataKeys = array_map('strtolower', $debugReplacePrivateDataKeys);
 

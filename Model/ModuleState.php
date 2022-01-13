@@ -1,7 +1,7 @@
 <?php
-/**
- * Copyright © 2019 Studio Raz. All rights reserved.
- * See LICENSE.txt for license details.
+/*
+ * Copyright © 2022 Studio Raz. All rights reserved.
+ * See LICENCE file for license details.
  */
 
 namespace SR\Gateway\Model;
@@ -11,22 +11,14 @@ use SR\Gateway\Api\ModuleStateInterface;
 
 class ModuleState implements ModuleStateInterface
 {
-    /**
-     * @var ConfigInterface
-     */
-    protected $config;
+    protected ConfigInterface $config;
+    private ?bool $forceActive;
 
     /**
-     * @var bool
-     */
-    private $forceActive;
-
-    /**
-     * ModuleState constructor.
      * @param ConfigInterface $config
      * @param bool|null $forceActive
      */
-    public function __construct(ConfigInterface $config, $forceActive = null)
+    public function __construct(ConfigInterface $config, bool $forceActive = null)
     {
         $this->config = $config;
         $this->forceActive = $forceActive;
@@ -35,7 +27,7 @@ class ModuleState implements ModuleStateInterface
     /**
      * @inheritDoc
      */
-    public function isActive($store = null)
+    public function isActive($store = null): bool
     {
         if ($this->forceActive !== null) {
             return (bool)$this->forceActive;

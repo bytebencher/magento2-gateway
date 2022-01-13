@@ -1,17 +1,19 @@
 <?php
-/**
- * Copyright © 2019 Studio Raz. All rights reserved.
- * See LICENSE.txt for license details.
+/*
+ * Copyright © 2022 Studio Raz. All rights reserved.
+ * See LICENCE file for license details.
  */
 
 namespace SR\Gateway\Model\Validator;
+
+use SR\Gateway\Api\Validator\ResultDataInterface;
 
 class NullValidator extends AbstractValidator
 {
     /**
      * @inheritDoc
      */
-    protected function isResponseValid(array $rawResponse)
+    protected function isResponseValid(array $rawResponse): bool
     {
         return true;
     }
@@ -19,7 +21,7 @@ class NullValidator extends AbstractValidator
     /**
      * @inheritDoc
      */
-    protected function getErrorMessages(array $rawResponse)
+    protected function getErrorMessages(array $rawResponse): array
     {
         return [];
     }
@@ -27,7 +29,7 @@ class NullValidator extends AbstractValidator
     /**
      * @inheritDoc
      */
-    protected function fetchData($rawResponse)
+    protected function fetchData($rawResponse): ?ResultDataInterface
     {
         return null;
     }

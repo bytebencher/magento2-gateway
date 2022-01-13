@@ -1,7 +1,7 @@
 <?php
-/**
- * Copyright © 2020 Studio Raz. All rights reserved.
- * See LICENSE.txt for license details.
+/*
+ * Copyright © 2022 Studio Raz. All rights reserved.
+ * See LICENCE file for license details.
  */
 
 namespace SR\Gateway\Model\Validator;
@@ -21,14 +21,14 @@ class ResultData implements ResultDataInterface
      *
      * @var DataObject|null
      */
-    private $entity;
+    private ?DataObject $entity;
 
     /**
      * List of Entities
      *
      * @var DataObject[]
      */
-    private $items;
+    private array $items;
 
     /**
      * ResultData constructor.
@@ -52,7 +52,7 @@ class ResultData implements ResultDataInterface
     /**
      * @inheritDoc
      */
-    public function setRawData($dataset = null)
+    public function setRawData($dataset = null): self
     {
         $this->rawData = $dataset;
         return $this;
@@ -61,7 +61,7 @@ class ResultData implements ResultDataInterface
     /**
      * @inheritDoc
      */
-    public function getEntity()
+    public function getEntity(): DataObject
     {
         if ($this->entity === null) {
             return current($this->getItems());
@@ -73,7 +73,7 @@ class ResultData implements ResultDataInterface
     /**
      * @inheritDoc
      */
-    public function setEntity(DataObject $dataset)
+    public function setEntity(DataObject $dataset): self
     {
         $this->entity = $dataset;
         return $this;
@@ -82,7 +82,7 @@ class ResultData implements ResultDataInterface
     /**
      * @inheritDoc
      */
-    public function getItems()
+    public function getItems(): array
     {
         return $this->items;
     }
@@ -90,7 +90,7 @@ class ResultData implements ResultDataInterface
     /**
      * @inheritDoc
      */
-    public function setItems(array $items = [])
+    public function setItems(array $items = []): self
     {
         $this->items = $items;
         return $this;

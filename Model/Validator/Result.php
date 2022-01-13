@@ -1,7 +1,7 @@
 <?php
-/**
- * Copyright © 2019 Studio Raz. All rights reserved.
- * See LICENSE.txt for license details.
+/*
+ * Copyright © 2022 Studio Raz. All rights reserved.
+ * See LICENCE file for license details.
  */
 
 namespace SR\Gateway\Model\Validator;
@@ -12,38 +12,30 @@ use SR\Gateway\Api\Validator\ResultInterface;
 
 class Result implements ResultInterface
 {
-    /**
-     * @var bool
-     */
-    protected $isValid;
+    protected bool $isValid;
 
     /**
      * @var Phrase[]
      */
-    protected $failsDescription;
+    protected array $failsDescription;
+    protected ?ResultDataInterface $resultData = null;
 
     /**
-     * @var ResultDataInterface|null
-     */
-    protected $resultData;
-
-    /**
-     * Result constructor.
-     * @param null|bool $isValid
+     * @param bool $isValid
      * @param array $failsDescription
      */
     public function __construct(
-        $isValid,
+        bool $isValid,
         array $failsDescription = []
     ) {
-        $this->isValid = (bool)$isValid;
+        $this->isValid = $isValid;
         $this->failsDescription = $failsDescription;
     }
 
     /**
      * @inheritDoc
      */
-    public function isValid()
+    public function isValid(): bool
     {
         return $this->isValid;
     }
@@ -51,7 +43,7 @@ class Result implements ResultInterface
     /**
      * @inheritDoc
      */
-    public function getFailsDescription()
+    public function getFailsDescription(): array
     {
         return $this->failsDescription;
     }
@@ -59,7 +51,7 @@ class Result implements ResultInterface
     /**
      * @inheritDoc
      */
-    public function setData($data = null)
+    public function setData($data = null): self
     {
         $this->resultData = $data;
         return $this;
@@ -68,7 +60,7 @@ class Result implements ResultInterface
     /**
      * @inheritDoc
      */
-    public function getData()
+    public function getData(): ?ResultDataInterface
     {
         return $this->resultData;
     }

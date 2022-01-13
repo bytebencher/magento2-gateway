@@ -1,7 +1,7 @@
 <?php
-/**
- * Copyright © 2019 Studio Raz. All rights reserved.
- * See LICENSE.txt for license details.
+/*
+ * Copyright © 2022 Studio Raz. All rights reserved.
+ * See LICENCE file for license details.
  */
 
 namespace SR\Gateway\Api\ErrorMapper;
@@ -21,5 +21,5 @@ interface ErrorMessageMapperInterface
      *
      * @return string|null
      */
-    public function getMessage(string $code);
+    public function getMessage(string $code): ?string;
 }

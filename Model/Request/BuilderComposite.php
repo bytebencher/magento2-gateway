@@ -1,7 +1,7 @@
 <?php
-/**
- * Copyright © 2019 Studio Raz. All rights reserved.
- * See LICENSE.txt for license details.
+/*
+ * Copyright © 2022 Studio Raz. All rights reserved.
+ * See LICENCE file for license details.
  */
 
 namespace SR\Gateway\Model\Request;
@@ -17,14 +17,9 @@ class BuilderComposite implements BuilderInterface
      * @var BuilderInterface[]
      */
     protected $builders;
+    protected ConfigInterface $config;
 
     /**
-     * @var ConfigInterface
-     */
-    protected $config;
-
-    /**
-     * BuilderComposite constructor.
      * @param TMapFactory $tmapFactory
      * @param ConfigInterface $config
      * @param array $builders
@@ -46,7 +41,7 @@ class BuilderComposite implements BuilderInterface
     /**
      * @inheritDoc
      */
-    public function build(array $buildSubject)
+    public function build(array $buildSubject): array
     {
         $result = [];
         foreach ($this->builders as $builder) {
@@ -63,7 +58,7 @@ class BuilderComposite implements BuilderInterface
      * @param array $builder
      * @return array
      */
-    protected function merge(array $result, array $builder)
+    protected function merge(array $result, array $builder): array
     {
         return array_replace_recursive($result, $builder);
     }
@@ -77,7 +72,7 @@ class BuilderComposite implements BuilderInterface
      *
      * @return \Closure
      */
-    private function getCreationStrategyClosure()
+    private function getCreationStrategyClosure(): \Closure
     {
         return \Closure::bind(function (...$args) {
             /** @var ObjectManagerInterface $objectManager */

@@ -1,7 +1,7 @@
 <?php
-/**
- * Copyright © 2019 Studio Raz. All rights reserved.
- * See LICENSE.txt for license details.
+/*
+ * Copyright © 2022 Studio Raz. All rights reserved.
+ * See LICENCE file for license details.
  */
 
 namespace SR\Gateway\Model\Logger\Handler;
@@ -17,20 +17,12 @@ class DbHandler extends AbstractProcessingHandler
     /**
      * It is used to determine whether Log data is stored into DB-Table. Flag.
      */
-    const DB_LOG_HANDLER_FLAG = 'is_db_log';
+    public const DB_LOG_HANDLER_FLAG = 'is_db_log';
+
+    private ConfigInterface $config;
+    private ResourceConnection $resource;
 
     /**
-     * @var ConfigInterface
-     */
-    private $config;
-
-    /**
-     * @var ResourceConnection
-     */
-    private $resource;
-
-    /**
-     * DbHandler constructor.
      * @param ConfigInterface $config
      * @param ResourceConnection $resource
      * @param int $level
@@ -39,8 +31,8 @@ class DbHandler extends AbstractProcessingHandler
     public function __construct(
         ConfigInterface $config,
         ResourceConnection $resource,
-        $level = \Monolog\Logger::DEBUG,
-        $bubble = true
+        int $level = \Monolog\Logger::DEBUG,
+        bool $bubble = true
     ) {
         $this->config = $config;
 

@@ -1,20 +1,20 @@
 <?php
-/**
- * Copyright © 2019 Studio Raz. All rights reserved.
- * See LICENSE.txt for license details.
+/*
+ * Copyright © 2022 Studio Raz. All rights reserved.
+ * See LICENCE file for license details.
  */
 
 namespace SR\Gateway\Model\Request\RequestMethod;
 
+use Laminas\Http\Request;
 use SR\Gateway\Model\Request\AbstractClientBuilder;
-use Zend\Http\Request;
 
 class PatchRequestMethodBuilder extends AbstractClientBuilder
 {
     /**
      * @inheritDoc
      */
-    public function build(array $buildSubject)
+    public function build(array $buildSubject): array
     {
         return [
             self::KEY_REQUEST_METHOD => Request::METHOD_PATCH,

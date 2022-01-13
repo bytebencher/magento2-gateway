@@ -1,7 +1,7 @@
 <?php
-/**
- * Copyright © 2019 Studio Raz. All rights reserved.
- * See LICENSE.txt for license details.
+/*
+ * Copyright © 2022 Studio Raz. All rights reserved.
+ * See LICENCE file for license details.
  */
 
 namespace SR\Gateway\Api\Validator;
@@ -18,5 +18,5 @@ interface ValidatorInterface
      * @param array $validationSubject
      * @return ResultInterface
      */
-    public function validate(array $validationSubject);
+    public function validate(array $validationSubject): ResultInterface;
 }

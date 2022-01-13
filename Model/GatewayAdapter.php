@@ -1,7 +1,7 @@
 <?php
-/**
- * Copyright © 2019 Studio Raz. All rights reserved.
- * See LICENSE.txt for license details.
+/*
+ * Copyright © 2022 Studio Raz. All rights reserved.
+ * See LICENCE file for license details.
  */
 
 namespace SR\Gateway\Model;
@@ -17,18 +17,10 @@ use SR\Gateway\Model\Config\Config;
 
 class GatewayAdapter
 {
-    /**
-     * @var CommandPoolInterface
-     */
-    protected $commandPool;
+    protected CommandPoolInterface $commandPool;
+    protected ConfigInterface $config;
 
     /**
-     * @var ConfigInterface
-     */
-    protected $config;
-
-    /**
-     * GatewayAdapter constructor.
      * @param CommandPoolInterface $commandPool
      * @param ConfigInterface $config
      */
@@ -50,7 +42,7 @@ class GatewayAdapter
      *
      * @throws CommandException
      */
-    protected function executeCommand($commandCode, array $arguments = [])
+    protected function executeCommand(string $commandCode, array $arguments = []): ?ResultInterface
     {
         $storeId = $arguments[CommandInterface::ARGUMENT_SUBJECT]['store_id'] ?? null;
         $command = null;
@@ -78,7 +70,7 @@ class GatewayAdapter
      *
      * @return bool
      */
-    protected function canPerformCommand($commandCode, $storeId = null)
+    protected function canPerformCommand(string $commandCode, $storeId = null): bool
     {
         return $this->config->getActive($storeId)
             && $this->config->getValue('can_' . $commandCode, Config::GROUP_PATH_GATEWAY, $storeId);
@@ -92,7 +84,7 @@ class GatewayAdapter
      *
      * @return $this
      */
-    protected function prepareCommandArguments($commandCode, array &$arguments = [])
+    protected function prepareCommandArguments(string $commandCode, array &$arguments = []): self
     {
         //$arguments[CommandInterface::ARGUMENT_CONFIG] = $this->config;
 

@@ -1,20 +1,20 @@
 <?php
-/**
- * Copyright © 2019 Studio Raz. All rights reserved.
- * See LICENSE.txt for license details.
+/*
+ * Copyright © 2022 Studio Raz. All rights reserved.
+ * See LICENCE file for license details.
  */
 
 namespace SR\Gateway\Model\Request;
 
 class ApiCredentialsBuilder extends AbstractClientBuilder
 {
-    const API_USERNAME = 'api_username';
-    const API_PASSWORD = 'api_password';
+    public const API_USERNAME = 'api_username';
+    public const API_PASSWORD = 'api_password';
 
     /**
      * @inheritDoc
      */
-    public function build(array $buildSubject)
+    public function build(array $buildSubject): array
     {
         $storeId = $buildSubject['subject']['store_id'] ?? null;
 

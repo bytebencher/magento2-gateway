@@ -1,7 +1,7 @@
 <?php
-/**
- * Copyright © 2019 Studio Raz. All rights reserved.
- * See LICENSE.txt for license details.
+/*
+ * Copyright © 2022 Studio Raz. All rights reserved.
+ * See LICENCE file for license details.
  */
 
 namespace SR\Gateway\Model\Http\Client;
@@ -10,31 +10,22 @@ use Magento\Framework\ObjectManagerInterface;
 use Magento\Framework\Phrase;
 use SR\Gateway\Api\Config\ConfigInterface;
 use SR\Gateway\Api\Http\Client\ClientFactoryInterface;
+use SR\Gateway\Api\Http\Client\ClientInterface;
 use SR\Gateway\Exception\ClientException;
 use SR\Gateway\Model\Config\Config;
 use SR\Gateway\Model\System\Config\Source\HttpClient;
 
 class ClientFactory implements ClientFactoryInterface
 {
-    /**
-     * @var ObjectManagerInterface
-     */
-    protected $objectManager;
-
-    /**
-     * @var ConfigInterface
-     */
-    protected $config;
+    protected ObjectManagerInterface $objectManager;
+    protected ConfigInterface $config;
 
     /**
      * List of possible arguments which are passed into Client Adapter Object (on create instance)
-     *
-     * @var array
      */
-    protected $clientArguments = [];
+    protected array $clientArguments = [];
 
     /**
-     * ClientFactory constructor.
      * @param ObjectManagerInterface $objectManager
      * @param ConfigInterface $config
      * @param array $clientArguments
@@ -52,7 +43,7 @@ class ClientFactory implements ClientFactoryInterface
     /**
      * @inheritDoc
      */
-    public function create(array $subject, array $arguments = [])
+    public function create(array $subject, array $arguments = []): ClientInterface
     {
         $storeId = $subject['store_id'] ?? null;
         $httpClientCode = $this->config->getValue(Config::KEY_CONFIG_HTTP_CLIENT, Config::DEFAULT_PATH_GROUP, $storeId) ?: null;

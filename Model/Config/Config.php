@@ -1,7 +1,7 @@
 <?php
-/**
- * Copyright © 2019 Studio Raz. All rights reserved.
- * See LICENSE.txt for license details.
+/*
+ * Copyright © 2022 Studio Raz. All rights reserved.
+ * See LICENCE file for license details.
  */
 
 namespace SR\Gateway\Model\Config;
@@ -55,24 +55,16 @@ class Config implements ConfigInterface
 
     /**#@- */
 
-    /**
-     * @var ScopeConfigInterface
-     */
-    protected $scopeConfig;
+    protected ScopeConfigInterface $scopeConfig;
+    protected ?string $pathPattern = null;
 
     /**
-     * @var string
-     */
-    protected $pathPattern;
-
-    /**
-     * Config constructor.
      * @param ScopeConfigInterface $scopeConfig
      * @param string $pathPattern
      */
     public function __construct(
         ScopeConfigInterface $scopeConfig,
-        $pathPattern = self::DEFAULT_PATH_PATTERN
+        string $pathPattern = self::DEFAULT_PATH_PATTERN
     ) {
         $this->scopeConfig = $scopeConfig;
         $this->pathPattern = $pathPattern;
@@ -81,7 +73,7 @@ class Config implements ConfigInterface
     /**
      * @inheritDoc
      */
-    public function getValue($field, $group = null, $storeId = null)
+    public function getValue(string $field, ?string $group = null, $storeId = null)
     {
         if ($this->pathPattern === null) {
             return null;
@@ -97,7 +89,7 @@ class Config implements ConfigInterface
     /**
      * @inheritDoc
      */
-    public function setPathPattern($pathPattern)
+    public function setPathPattern(string $pathPattern): void
     {
         $this->pathPattern = $pathPattern;
     }
@@ -105,7 +97,7 @@ class Config implements ConfigInterface
     /**
      * @inheritDoc
      */
-    public function getActive($storeId = null)
+    public function getActive($storeId = null): ?string
     {
         return $this->getValue(static::KEY_CONFIG_ACTIVE, static::DEFAULT_PATH_GROUP, $storeId);
     }
@@ -113,7 +105,7 @@ class Config implements ConfigInterface
     /**
      * @inheritDoc
      */
-    public function getApiUsername($storeId = null)
+    public function getApiUsername($storeId = null): ?string
     {
         return $this->getValue(
             $this->isModeProduction($storeId) ? static::KEY_CONFIG_API_USERNAME_PRODUCTION : static::KEY_CONFIG_API_USERNAME_SANDBOX,
@@ -125,7 +117,7 @@ class Config implements ConfigInterface
     /**
      * @inheritDoc
      */
-    public function getApiPassword($storeId = null)
+    public function getApiPassword($storeId = null): ?string
     {
         return $this->getValue(
             $this->isModeProduction($storeId) ? static::KEY_CONFIG_API_PASSWORD_PRODUCTION : static::KEY_CONFIG_API_PASSWORD_SANDBOX,
@@ -137,7 +129,7 @@ class Config implements ConfigInterface
     /**
      * @inheritDoc
      */
-    public function getApiEndpoint($storeId = null)
+    public function getApiEndpoint($storeId = null): ?string
     {
         return $this->getValue(
             $this->isModeProduction($storeId) ? static::KEY_CONFIG_API_ENDPOINT_PRODUCTION : static::KEY_CONFIG_API_ENDPOINT_SANDBOX,
@@ -147,9 +139,12 @@ class Config implements ConfigInterface
     }
 
     /**
-     * @inheritDoc
+     * Checks whether the Mode is Production or Sandbox
+     *
+     * @param mixed|null $storeId
+     * @return bool
      */
-    public function isModeProduction($storeId = null)
+    public function isModeProduction($storeId = null): bool
     {
         return (int)$this->getValue(self::KEY_CONFIG_MODE, static::DEFAULT_PATH_GROUP, $storeId) === ApiMode::PRODUCTION;
     }

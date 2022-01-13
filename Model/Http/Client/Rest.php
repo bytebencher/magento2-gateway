@@ -1,42 +1,28 @@
 <?php
-/**
- * Copyright © 2019 Studio Raz. All rights reserved.
- * See LICENSE.txt for license details.
+/*
+ * Copyright © 2022 Studio Raz. All rights reserved.
+ * See LICENCE file for license details.
  */
 
 namespace SR\Gateway\Model\Http\Client;
 
+use Laminas\Http\Request as HttpRequest;
 use Magento\Framework\Phrase;
 use SR\Gateway\Api\Http\Client\ClientInterface;
 use SR\Gateway\Api\Http\ConverterInterface;
 use SR\Gateway\Api\Http\TransferInterface;
 use SR\Gateway\Api\LoggerInterface;
 use SR\Gateway\Exception\ClientException;
-use SR\Gateway\Model\Http\Adapter\CurlAdapter as ClientAdapter;
 use SR\Gateway\Model\Http\Adapter\CurlAdapterFactory as ClientAdapterFactory;
 use SR\Gateway\Model\Request\ClientConfigBuilder;
-use Zend\Http\Request as HttpRequest;
-use Zend\Http\Response as HttpResponse;
 
 class Rest implements ClientInterface
 {
-    /**
-     * @var LoggerInterface
-     */
-    protected $logger;
+    protected LoggerInterface $logger;
+    protected ClientAdapterFactory $clientAdapterFactory;
+    protected ?ConverterInterface $converter = null;
 
     /**
-     * @var ClientAdapterFactory
-     */
-    protected $clientAdapterFactory;
-
-    /**
-     * @var ConverterInterface|null
-     */
-    protected $converter;
-
-    /**
-     * Rest constructor.
      * @param LoggerInterface $logger
      * @param ClientAdapterFactory $clientAdapterFactory
      * @param ConverterInterface|null $converter
@@ -54,58 +40,54 @@ class Rest implements ClientInterface
     /**
      * @inheritDoc
      */
-    public function placeRequest(TransferInterface $transferObject)
+    public function placeRequest(TransferInterface $transferObject): array
     {
         $log = [
             'client' => static::class,
             'client_config' => $transferObject->getClientConfig(),
             'endpoint_url' => $transferObject->getUri(),
-            'headers' => $transferObject->getHeaders(),
+            'headers' => $transferObject->getHeaders(),// NOTE: sometime it contains Secure info like Authorization
             'request_method' => $transferObject->getMethod(),
             //'user' => $transferObject->getAuthUsername(),// TODO: uncomment when it is needed
             //'password' => $transferObject->getAuthPassword(),// TODO: uncomment when it is needed
             'request' => $transferObject->getBody(),
         ];
         $response['object'] = [];
-        $encodedRequestBody = json_encode($transferObject->getBody());
+        $requestBody = '';
 
         try {
-            /** @var ClientAdapter $clientAdapter */
             $clientAdapter = $this->clientAdapterFactory->create();
 
-            $clientAdapter->setConfig($this->buildConfig($transferObject));
+            $clientConfig = $transferObject->getClientConfig();
+            $options = $clientConfig[ClientConfigBuilder::PARAM_CURL_EXTRA_OPTIONS] ?? [];
+            unset($clientConfig[ClientConfigBuilder::PARAM_CURL_EXTRA_OPTIONS]);
 
-            $clientAdapter->addOption(CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-            $clientAdapter->addOption(CURLINFO_HEADER_OUT, true);
+            $clientAdapter->setConfig($clientConfig);
 
-            /**
-             * CURLOPT_FAILONERROR Description:
-             *     TRUE to fail verbosely if the HTTP code returned is greater than or equal to 400.
-             *     The default behavior is to return the page normally, ignoring the code.
-             *
-             * This means when TRUE the BODY is not returned for such cases.
-             *
-             * NOTE: but we NEED to get the BODY on Error/Fail because it contains the descriptions of the Error (ex: in XML format).
-             */
-            $clientAdapter->addOption(CURLOPT_FAILONERROR, false);
+            foreach ($options as $optionCode => $optionValue) {
+                $clientAdapter->addOption($optionCode, $optionValue);
+            }
 
-            // TODO: implement logic to pass Options using $transferObject
+            if ($transferObject->shouldEncode()) {
+                $requestBody = $this->encodeBody($transferObject);
+            }
 
             // NOTE: the TRICK to use PATCH method
             if ($transferObject->getMethod() === HttpRequest::METHOD_PATCH) {
-                $clientAdapter->addOption(CURLOPT_CUSTOMREQUEST, HttpRequest::METHOD_PATCH);
-                $clientAdapter->addOption(CURLOPT_POSTFIELDS, $encodedRequestBody);
+                $clientAdapter->addOption(CURLOPT_CUSTOMREQUEST, $transferObject->getMethod());
+                $clientAdapter->addOption(CURLOPT_POSTFIELDS, $requestBody);
+            } else if ($transferObject->getMethod() === HttpRequest::METHOD_DELETE) {
+                $clientAdapter->addOption(CURLOPT_CUSTOMREQUEST, $transferObject->getMethod());
             }
 
             $log['request'] = $clientAdapter->write(
                 $transferObject->getMethod(),
                 $transferObject->getUri(),
                 '1.1',
-                $transferObject->getHeaders(),
-                $encodedRequestBody
+                $this->buildHeaders($transferObject),
+                $requestBody
             );
 
-            /** @var HttpResponse $httpResponse */
             $httpResponse = $clientAdapter->singleExec();
             if ($errorMessage = $clientAdapter->getError()) {
                 throw new ClientException(new Phrase('HTTP Adapter Error :: ' . $errorMessage));
@@ -124,7 +106,7 @@ class Rest implements ClientInterface
             // NOTE: destruct CURL resource
             $clientAdapter->close();
 
-            $response['last_request'] = $encodedRequestBody;
+            $response['last_request'] = $requestBody;
             $response['last_response'] = isset($httpResponse) ? $httpResponse->getBody() : '';
 
             $log['response'] = $response['last_response'];
@@ -135,31 +117,49 @@ class Rest implements ClientInterface
     }
 
     /**
-     * Returns list of Config parameters
-     *
      * @param TransferInterface $transferObject
-     *
      * @return array
      */
-    protected function buildConfig(TransferInterface $transferObject)
+    protected function buildHeaders(TransferInterface $transferObject): array
     {
-        $config = array_replace_recursive(
-            // NOTE: Default Config Parameters for REST Request
-            [
-                'timeout' => 60,
-                'verifypeer' => false,
-                'verifyhost' => false,
-            ],
-
-            // NOTE: Custom Config Parameters
-            $transferObject->getClientConfig() ?: []
-        );
-
-        // NOTE: Add extra parameter , if Rest API Request uses Authorization
-        if ($transferObject->getAuthUsername() && $transferObject->getAuthPassword()) {
-            $config['userpwd'] = $transferObject->getAuthUsername() . ':' . $transferObject->getAuthPassword();
+        $headers = [];
+        foreach ($transferObject->getHeaders() as $name => $value) {
+            $headers[] = sprintf('%s: %s', $name, $value);
         }
 
-        return $config;
+        return $headers;
+    }
+
+    /**
+     * @param TransferInterface $transferObject
+     * @return array|string
+     */
+    protected function encodeBody(TransferInterface $transferObject)
+    {
+        $rawBody = $transferObject->getBody();
+
+        $headers = $transferObject->getHeaders();
+        $contentType = $headers['Content-Type'] ?? null;
+
+        if (empty($contentType)) {
+            return $rawBody;
+        }
+
+        $exploded = explode(';', $contentType . ';');
+        $encoding = '';
+
+        if (mb_strpos($exploded[0] ?? '', '/') !== false) {
+            [, $encoding] = explode('/', $exploded[0] ?? '');
+        }
+
+        switch ($encoding) {
+            case 'x-www-form-urlencoded':
+                return http_build_query($rawBody);
+
+            case 'json':
+                return \Safe\json_encode($rawBody);
+        }
+
+        return $rawBody;
     }
 }

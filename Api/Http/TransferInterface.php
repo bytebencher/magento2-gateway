@@ -1,7 +1,7 @@
 <?php
-/**
- * Copyright © 2019 Studio Raz. All rights reserved.
- * See LICENSE.txt for license details.
+/*
+ * Copyright © 2022 Studio Raz. All rights reserved.
+ * See LICENCE file for license details.
  */
 
 namespace SR\Gateway\Api\Http;
@@ -17,28 +17,28 @@ interface TransferInterface
      *
      * @return array
      */
-    public function getClientConfig();
+    public function getClientConfig(): array;
 
     /**
      * Returns method used to place request
      *
-     * @return string|int
+     * @return string
      */
-    public function getMethod();
+    public function getMethod(): string;
 
     /**
      * Returns headers
      *
      * @return array
      */
-    public function getHeaders();
+    public function getHeaders(): array;
 
     /**
      * Whether body should be encoded before place
      *
      * @return bool
      */
-    public function shouldEncode();
+    public function shouldEncode(): bool;
 
     /**
      * Returns request body
@@ -52,19 +52,19 @@ interface TransferInterface
      *
      * @return string
      */
-    public function getUri();
+    public function getUri(): string;
 
     /**
      * Returns Auth username
      *
      * @return string
      */
-    public function getAuthUsername();
+    public function getAuthUsername(): string;
 
     /**
      * Returns Auth password
      *
      * @return string
      */
-    public function getAuthPassword();
+    public function getAuthPassword(): string;
 }
