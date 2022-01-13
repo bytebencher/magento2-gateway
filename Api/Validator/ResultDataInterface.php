@@ -21,9 +21,10 @@ interface ResultDataInterface
      * Set Raw Data
      *
      * @param mixed $dataset Entity, Collection or Dataset
+     *
      * @return $this
      */
-    public function setRawData($dataset = null);
+    public function setRawData($dataset = null): self;
 
     /**
      * Get Single Entity (or another Data-set) which uses DataObject api and structure
@@ -31,7 +32,7 @@ interface ResultDataInterface
      *
      * @return DataObject
      */
-    public function getEntity();
+    public function getEntity(): DataObject;
 
     /**
      * Set Single Entity
@@ -39,20 +40,21 @@ interface ResultDataInterface
      * @param DataObject $dataset Dataset of the Entity
      * @return $this
      */
-    public function setEntity(DataObject $dataset);
+    public function setEntity(DataObject $dataset): self;
 
     /**
      * Get Collection of Entities (another Data-sets) which use DataObject api and structure
      *
      * @return DataObject[]
      */
-    public function getItems();
+    public function getItems(): array;
 
     /**
      * Set Items
      *
      * @param DataObject[] $items Collection (array) of DataObjects
-     * @return mixed
+     *
+     * @return $this
      */
-    public function setItems(array $items = []);
+    public function setItems(array $items = []): self;
 }

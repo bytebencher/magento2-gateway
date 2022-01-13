@@ -17,23 +17,11 @@ use SR\Gateway\Model\Request\ClientConfigBuilder;
 
 class Soap implements ClientInterface
 {
-    /**
-     * @var LoggerInterface
-     */
-    protected $logger;
+    protected LoggerInterface $logger;
+    protected ClientAdapterFactory $clientAdapterFactory;
+    protected ?ConverterInterface $converter = null;
 
     /**
-     * @var ClientAdapterFactory
-     */
-    protected $clientAdapterFactory;
-
-    /**
-     * @var ConverterInterface|null
-     */
-    protected $converter;
-
-    /**
-     * Rest constructor.
      * @param LoggerInterface $logger
      * @param ClientAdapterFactory $clientAdapterFactory
      * @param ConverterInterface|null $converter
@@ -51,7 +39,7 @@ class Soap implements ClientInterface
     /**
      * @inheritDoc
      */
-    public function placeRequest(TransferInterface $transferObject)
+    public function placeRequest(TransferInterface $transferObject): array
     {
         $log = [
             'client' => static::class,
@@ -124,7 +112,7 @@ class Soap implements ClientInterface
      *
      * @return \SoapHeader[]|null
      */
-    protected function buildSoapHeaders(TransferInterface $transferObject)
+    protected function buildSoapHeaders(TransferInterface $transferObject): ?array
     {
         $headers = null;
 

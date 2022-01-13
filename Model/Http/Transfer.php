@@ -13,59 +13,35 @@ class Transfer implements TransferInterface
     /**
      * Name of Auth username field
      */
-    const AUTH_USERNAME = 'username';
+    public const AUTH_USERNAME = 'username';
 
     /**
      * Name of Auth password field
      */
-    const AUTH_PASSWORD = 'password';
+    public const AUTH_PASSWORD = 'password';
 
-    /**
-     * @var array
-     */
-    protected $clientConfig;
-
-    /**
-     * @var array
-     */
-    protected $headers;
-
-    /**
-     * @var string
-     */
-    protected $method;
+    protected array $clientConfig;
+    protected array $headers;
+    protected string $method;
 
     /**
      * @var array|string
      */
     protected $body;
+    protected string $uri;
+    protected bool $encode;
+    protected array $auth;
 
     /**
-     * @var string
-     */
-    protected $uri;
-
-    /**
-     * @var bool
-     */
-    protected $encode;
-
-    /**
-     * @var array
-     */
-    protected $auth;
-
-    /**
-     * Transfer constructor.
      * @param array $clientConfig
      * @param array $headers
-     * @param $body
+     * @param mixed $body
      * @param array $auth
-     * @param $method
-     * @param $uri
-     * @param $encode
+     * @param string $method
+     * @param string $uri
+     * @param bool $encode
      */
-    public function __construct(array $clientConfig, array $headers, $body, array $auth, $method, $uri, $encode)
+    public function __construct(array $clientConfig, array $headers, $body, array $auth, string $method, string $uri, bool $encode)
     {
         $this->clientConfig = $clientConfig;
         $this->headers = $headers;
@@ -79,7 +55,7 @@ class Transfer implements TransferInterface
     /**
      * @inheritDoc
      */
-    public function getClientConfig()
+    public function getClientConfig(): array
     {
         return $this->clientConfig;
     }
@@ -87,15 +63,15 @@ class Transfer implements TransferInterface
     /**
      * @inheritDoc
      */
-    public function getMethod()
+    public function getMethod(): string
     {
-        return (string)$this->method;
+        return $this->method;
     }
 
     /**
      * @inheritDoc
      */
-    public function getHeaders()
+    public function getHeaders(): array
     {
         return $this->headers;
     }
@@ -111,15 +87,15 @@ class Transfer implements TransferInterface
     /**
      * @inheritDoc
      */
-    public function getUri()
+    public function getUri(): string
     {
-        return (string)$this->uri;
+        return $this->uri;
     }
 
     /**
      * @inheritDoc
      */
-    public function shouldEncode()
+    public function shouldEncode(): bool
     {
         return $this->encode;
     }
@@ -127,7 +103,7 @@ class Transfer implements TransferInterface
     /**
      * @inheritDoc
      */
-    public function getAuthUsername()
+    public function getAuthUsername(): string
     {
         return $this->auth[self::AUTH_USERNAME];
     }
@@ -135,7 +111,7 @@ class Transfer implements TransferInterface
     /**
      * @inheritDoc
      */
-    public function getAuthPassword()
+    public function getAuthPassword(): string
     {
         return $this->auth[self::AUTH_PASSWORD];
     }

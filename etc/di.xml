@@ -11,6 +11,9 @@
     <preference for="SR\Gateway\Api\LoggerInterface" type="SR\Gateway\Model\Logger"/>
     <preference for="SR\Gateway\Api\ModuleStateInterface" type="SR\Gateway\Model\ModuleState"/>
 
+    <preference for="SR\Gateway\Model\GatewayAdapterFactoryInterface" type="SR\Gateway\Model\GatewayAdapterFactory" />
+    <preference for="SR\Gateway\Model\GatewayAdapterPoolInterface" type="SR\Gateway\Model\GatewayAdapterPool"/>
+
     <preference for="SR\Gateway\Api\CommandInterface" type="SR\Gateway\Model\Command\GatewayCommand" />
     <preference for="SR\Gateway\Api\CommandPoolInterface" type="SR\Gateway\Model\Command\CommandPool" />
     <preference for="SR\Gateway\Api\Http\Client\ClientInterface" type="SR\Gateway\Model\Http\Client\Soap"/>

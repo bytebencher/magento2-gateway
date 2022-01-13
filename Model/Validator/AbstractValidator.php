@@ -14,20 +14,11 @@ use SR\Gateway\Api\Validator\ValidatorInterface;
 
 abstract class AbstractValidator implements ValidatorInterface
 {
-    /**
-     * @var ResultInterfaceFactory
-     */
-    protected $resultFactory;
+    protected ResultInterfaceFactory $resultFactory;
+    protected ResultDataInterfaceFactory $resultDataFactory;
 
     /**
-     * @var ResultDataInterfaceFactory
-     */
-    protected $resultDataFactory;
-
-    /**
-     * AbstractValidator constructor.
-     *
-     * @param ResultInterfaceFactory     $resultFactory
+     * @param ResultInterfaceFactory $resultFactory
      * @param ResultDataInterfaceFactory $resultDataFactory
      */
     public function __construct(
@@ -43,9 +34,9 @@ abstract class AbstractValidator implements ValidatorInterface
      *
      * @param array $rawResponse
      *
-     * @return boolean
+     * @return bool
      */
-    abstract protected function isResponseValid(array $rawResponse);
+    abstract protected function isResponseValid(array $rawResponse): bool;
 
     /**
      * Returns list of errors (Messages or corresponding Codes)
@@ -57,7 +48,7 @@ abstract class AbstractValidator implements ValidatorInterface
      *
      * @return array
      */
-    abstract protected function getErrorMessages(array $rawResponse);
+    abstract protected function getErrorMessages(array $rawResponse): array;
 
     /**
      * Fetches and Returns data from raw response
@@ -66,12 +57,12 @@ abstract class AbstractValidator implements ValidatorInterface
      *
      * @return ResultDataInterface|null
      */
-    abstract protected function fetchData($rawResponse);
+    abstract protected function fetchData($rawResponse): ?ResultDataInterface;
 
     /**
      * @inheritDoc
      */
-    public function validate(array $validationSubject)
+    public function validate(array $validationSubject): ResultInterface
     {
         $rawResponse = $validationSubject['response']['object'] ?? [];
 
@@ -79,7 +70,6 @@ abstract class AbstractValidator implements ValidatorInterface
 
         $errorMessages = !$isValid ? $this->getErrorMessages($rawResponse) : [];
 
-        /** @var ResultInterface $result */
         $result = $this->createResult($isValid, $errorMessages);
 
         if ($result->isValid()) {
@@ -97,7 +87,7 @@ abstract class AbstractValidator implements ValidatorInterface
      *
      * @return ResultInterface
      */
-    protected function createResult($isValid, array $fails = [])
+    protected function createResult(bool $isValid, array $fails = []): ResultInterface
     {
         return $this->resultFactory->create([
             'isValid' => (bool)$isValid,

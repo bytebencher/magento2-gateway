@@ -17,14 +17,14 @@ interface ResultInterface
      *
      * @return bool
      */
-    public function isValid();
+    public function isValid(): bool;
 
     /**
      * Returns list of fails description
      *
      * @return array
      */
-    public function getFailsDescription();
+    public function getFailsDescription(): array;
 
     /**
      * Set the Fetched Data and convert it into ResultDataInterface
@@ -33,12 +33,12 @@ interface ResultInterface
      *
      * @return $this
      */
-    public function setData($data = null);
+    public function setData($data = null): self;
 
     /**
      * Get Fetched Data
      *
      * @return ResultDataInterface|null
      */
-    public function getData();
+    public function getData(): ?ResultDataInterface;
 }

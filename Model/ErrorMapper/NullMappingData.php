@@ -13,7 +13,7 @@ class NullMappingData implements MessageMappingDataInterface
     /**
      * @inheritDoc
      */
-    public function merge(array $config) : void
+    public function merge(array $mappings) : void
     {
     }
 

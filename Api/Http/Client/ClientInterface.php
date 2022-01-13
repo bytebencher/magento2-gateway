@@ -19,8 +19,10 @@ interface ClientInterface
      * Places request to gateway. Returns result as ENV array
      *
      * @param TransferInterface $transferObject
+     *
      * @return array
+     *
      * @throws ClientException
      */
-    public function placeRequest(TransferInterface $transferObject);
+    public function placeRequest(TransferInterface $transferObject): array;
 }

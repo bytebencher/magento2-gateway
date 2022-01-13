@@ -10,126 +10,105 @@ use SR\Gateway\Api\Http\TransferInterface;
 
 class TransferBuilder
 {
-    /**
-     * @var array
-     */
-    protected $clientConfig = [];
-
-    /**
-     * @var array
-     */
-    protected $headers = [];
-
-    /**
-     * @var string
-     */
-    protected $method;
+    protected array $clientConfig = [];
+    protected array $headers = [];
+    protected string $method = '';
 
     /**
      * @var array|string
      */
     protected $body = [];
-
-    /**
-     * @var string
-     */
-    protected $uri = '';
-
-    /**
-     * @var bool
-     */
-    protected $encode = false;
-
-    /**
-     * @var array
-     */
-    protected $auth = [Transfer::AUTH_USERNAME => null, Transfer::AUTH_PASSWORD => null];
+    protected string $uri = '';
+    protected bool $encode = false;
+    protected array $auth = [
+        Transfer::AUTH_USERNAME => null,
+        Transfer::AUTH_PASSWORD => null,
+    ];
 
     /**
      * @param array $clientConfig
+     *
      * @return $this
      */
-    public function setClientConfig(array $clientConfig)
+    public function setClientConfig(array $clientConfig): self
     {
         $this->clientConfig = $clientConfig;
-
         return $this;
     }
 
     /**
      * @param array $headers
+     *
      * @return $this
      */
-    public function setHeaders(array $headers)
+    public function setHeaders(array $headers): self
     {
         $this->headers = $headers;
-
         return $this;
     }
 
     /**
      * @param array|string $body
+     *
      * @return $this
      */
-    public function setBody($body)
+    public function setBody($body): self
     {
         $this->body = $body;
-
         return $this;
     }
 
     /**
-     * @param string $username
+     * @param string|null $username
      * @return $this
      */
-    public function setAuthUsername($username)
+    public function setAuthUsername(?string $username): self
     {
         $this->auth[Transfer::AUTH_USERNAME] = $username;
-
         return $this;
     }
 
     /**
-     * @param string $password
+     * @param string|null $password
+     *
      * @return $this
      */
-    public function setAuthPassword($password)
+    public function setAuthPassword(?string $password): self
     {
         $this->auth[Transfer::AUTH_PASSWORD] = $password;
-
         return $this;
     }
 
     /**
      * @param string $method
+     *
      * @return $this
      */
-    public function setMethod($method)
+    public function setMethod(string $method): self
     {
         $this->method = $method;
-
         return $this;
     }
 
     /**
      * @param string $uri
+     *
      * @return $this
      */
-    public function setUri($uri)
+    public function setUri(string $uri): self
     {
         $this->uri = $uri;
-
         return $this;
     }
 
     /**
      * @param bool $encode
+     *
      * @return $this
      */
-    public function shouldEncode($encode)
+    public function shouldEncode(bool $encode): self
     {
         $this->encode = $encode;
-
         return $this;
     }
 

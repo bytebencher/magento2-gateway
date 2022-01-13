@@ -9,7 +9,6 @@ namespace SR\Gateway\Model\Response;
 use Magento\Framework\ObjectManager\TMapFactory;
 use Magento\Framework\ObjectManagerInterface;
 use SR\Gateway\Api\Config\ConfigInterface;
-use SR\Gateway\Api\Request\BuilderInterface;
 use SR\Gateway\Api\Response\HandlerInterface;
 
 class HandlerChain implements HandlerInterface
@@ -18,14 +17,9 @@ class HandlerChain implements HandlerInterface
      * @var HandlerInterface[]
      */
     private $handlers;
+    protected ConfigInterface $config;
 
     /**
-     * @var ConfigInterface
-     */
-    protected $config;
-
-    /**
-     * HandlerChain constructor.
      * @param TMapFactory $tmapFactory
      * @param ConfigInterface $config
      * @param array $handlers
@@ -47,7 +41,7 @@ class HandlerChain implements HandlerInterface
     /**
      * @inheritDoc
      */
-    public function handle(array $handlingSubject, array $response)
+    public function handle(array $handlingSubject, array $response): void
     {
         foreach ($this->handlers as $handler) {
             $handler->handle($handlingSubject, $response);
@@ -57,7 +51,7 @@ class HandlerChain implements HandlerInterface
     /**
      * TMap Closure objectCreationStrategy
      * NOTE: it is needed to set the same Config object in all children of this HandlerChain (Parent)
-     * NOTE: there is no need to pass Config object via di.xml for all Builders
+     * NOTE: there is no need to pass Config object via di.xml for all Handlers
      *
      * @see \Magento\Framework\ObjectManager\TMap::initObject
      *
@@ -68,11 +62,11 @@ class HandlerChain implements HandlerInterface
         return \Closure::bind(function (...$args) {
             /** @var ObjectManagerInterface $objectManager */
             $objectManager = $args[0];
-            $builderClassName = $args[1];
+            $handlerClassName = $args[1];
 
-            /** @var BuilderInterface $builder */
-            $builder = $objectManager->create($builderClassName, ['config' => $this->config]);
-            return $builder;
+            /** @var HandlerInterface $handler */
+            $handler = $objectManager->create($handlerClassName, ['config' => $this->config]);
+            return $handler;
         }, $this);
     }
 }

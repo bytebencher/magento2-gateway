@@ -11,7 +11,7 @@ class ApiEndpointBuilder extends AbstractClientBuilder
     /**
      * @inheritDoc
      */
-    public function build(array $buildSubject)
+    public function build(array $buildSubject): array
     {
         $storeId = $buildSubject['subject']['store_id'] ?? null;
 

@@ -7,11 +7,12 @@
 namespace SR\Gateway\Model\System\Config\Source;
 
 use Magento\Framework\Data\OptionSourceInterface;
+use Magento\Framework\Phrase;
 
 class HttpClient implements OptionSourceInterface
 {
-    const REST = 1;
-    const SOAP = 2;
+    public const REST = 1;
+    public const SOAP = 2;
 
     /**
      * @inheritDoc
@@ -19,8 +20,8 @@ class HttpClient implements OptionSourceInterface
     public function toOptionArray()
     {
         return [
-            ['value' => self::REST, 'label' => __('REST')],
-            ['value' => self::SOAP, 'label' => __('SOAP')],
+            ['value' => self::REST, 'label' => new Phrase('REST')],
+            ['value' => self::SOAP, 'label' => new Phrase('SOAP')],
         ];
     }
 
@@ -29,11 +30,11 @@ class HttpClient implements OptionSourceInterface
      *
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         return [
-            self::REST => __('REST'),
-            self::SOAP => __('SOAP'),
+            self::REST => new Phrase('REST'),
+            self::SOAP => new Phrase('SOAP'),
         ];
     }
 }

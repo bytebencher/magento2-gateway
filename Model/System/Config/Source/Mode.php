@@ -7,11 +7,12 @@
 namespace SR\Gateway\Model\System\Config\Source;
 
 use Magento\Framework\Data\OptionSourceInterface;
+use Magento\Framework\Phrase;
 
 class Mode implements OptionSourceInterface
 {
-    const PRODUCTION = 1;
-    const SANDBOX = 2;
+    public const PRODUCTION = 1;
+    public const SANDBOX = 2;
 
     /**
      * @inheritDoc
@@ -19,8 +20,8 @@ class Mode implements OptionSourceInterface
     public function toOptionArray()
     {
         return [
-            ['value' => self::PRODUCTION, 'label' => __('Production')],
-            ['value' => self::SANDBOX, 'label' => __('Sandbox')],
+            ['value' => self::PRODUCTION, 'label' => new Phrase('Production')],
+            ['value' => self::SANDBOX, 'label' => new Phrase('Sandbox')],
         ];
     }
 
@@ -29,11 +30,11 @@ class Mode implements OptionSourceInterface
      *
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         return [
-            self::PRODUCTION => __('Production'),
-            self::SANDBOX => __('Sandbox'),
+            self::PRODUCTION => new Phrase('Production'),
+            self::SANDBOX => new Phrase('Sandbox'),
         ];
     }
 }

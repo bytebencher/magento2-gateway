@@ -26,8 +26,10 @@ interface CommandInterface
      * Executes command basing on business object
      *
      * @param array $commandSubject
+     *
      * @return null|ResultInterface
+     *
      * @throws CommandException
      */
-    public function execute(array $commandSubject);
+    public function execute(array $commandSubject): ?ResultInterface;
 }

@@ -13,7 +13,7 @@ class NullHandler implements HandlerInterface
     /**
      * @inheritDoc
      */
-    public function handle(array $handlingSubject, array $response)
+    public function handle(array $handlingSubject, array $response): void
     {
 
     }

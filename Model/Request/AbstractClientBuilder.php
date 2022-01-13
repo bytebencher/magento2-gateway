@@ -14,46 +14,42 @@ abstract class AbstractClientBuilder implements BuilderInterface
     /**
      * Http Client: API credentials (User and Password)
      */
-    const KEY_API_CREDENTIALS = 'api_credentials';
+    public const KEY_API_CREDENTIALS = 'api_credentials';
 
     /**
      * Http Client: API endpoint uri
      */
-    const KEY_API_ENDPOINT = 'api_endpoint';
+    public const KEY_API_ENDPOINT = 'api_endpoint';
 
     /**
      * Http Client: client config
      */
-    const KEY_CLIENT_CONFIG = 'client_config';
+    public const KEY_CLIENT_CONFIG = 'client_config';
 
     /**
      * Http Client: client headers
      */
-    const KEY_CLIENT_HEADERS = 'client_headers';
+    public const KEY_CLIENT_HEADERS = 'client_headers';
 
     /**
      * Http Client: request action (ex: Order, UpdateExpiry etc)
      * API Endpoint url action-suffix (in REST) or SoapAction (in SOAP)
      */
-    const KEY_REQUEST_ACTION = 'request_action';
+    public const KEY_REQUEST_ACTION = 'request_action';
 
     /**
      * Http Client: request method
      */
-    const KEY_REQUEST_METHOD = 'request_method';
+    public const KEY_REQUEST_METHOD = 'request_method';
 
     /**
      * Http Client: Store View ID
      */
-    const KEY_STORE_ID = 'store_id';
+    public const KEY_STORE_ID = 'store_id';
+
+    protected ConfigInterface $config;
 
     /**
-     * @var ConfigInterface
-     */
-    protected $config;
-
-    /**
-     * DataBuilderAbstract constructor.
      * @param ConfigInterface $config
      */
     public function __construct(

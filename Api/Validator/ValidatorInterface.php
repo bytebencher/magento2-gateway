@@ -18,5 +18,5 @@ interface ValidatorInterface
      * @param array $validationSubject
      * @return ResultInterface
      */
-    public function validate(array $validationSubject);
+    public function validate(array $validationSubject): ResultInterface;
 }

@@ -14,10 +14,8 @@ class ErrorMappingData implements MessageMappingDataInterface
      * TODO: extend the list with new pairs 'ErrorCode' => 'ErrorDescription'
      *
      * Mappings of Error Codes
-     *
-     * @var array
      */
-    protected $mappings = [
+    protected array $mappings = [
         //'-100-' => 'SAMPLE of the error description.',
     ];
 
@@ -34,7 +32,7 @@ class ErrorMappingData implements MessageMappingDataInterface
     /**
      * @inheritDoc
      */
-    public function merge(array $mappings) : void
+    public function merge(array $mappings): void
     {
         $this->mappings = array_replace_recursive($this->mappings, $mappings);
     }

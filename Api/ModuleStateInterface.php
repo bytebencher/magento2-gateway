@@ -18,5 +18,5 @@ interface ModuleStateInterface
      * @param mixed|null $store
      * @return bool
      */
-    public function isActive($store = null);
+    public function isActive($store = null): bool;
 }

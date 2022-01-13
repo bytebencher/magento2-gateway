@@ -18,8 +18,10 @@ interface BuilderInterface
      * Builds ENV request
      *
      * @param array $buildSubject
+     *
      * @return array
+     *
      * @throws RequestBuilderException
      */
-    public function build(array $buildSubject);
+    public function build(array $buildSubject): array;
 }

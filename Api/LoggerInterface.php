@@ -20,9 +20,10 @@ interface LoggerInterface
      * @param array|string|Phrase $data
      * @param array|null $maskKeys
      * @param bool|null $forceDebug
-     * @return bool|void Whether the record has been processed
+     *
+     * @return void
      */
-    public function debug($data, array $maskKeys = null, $forceDebug = null);
+    public function debug($data, array $maskKeys = null, ?bool $forceDebug = null): void;
 
     /**
      * Critical conditions.
@@ -31,9 +32,10 @@ interface LoggerInterface
      *
      * @param string $message
      * @param array $context
-     * @return void|null
+     *
+     * @return void
      */
-    public function critical($message, array $context = []);
+    public function critical(string $message, array $context = []): void;
 
     /**
      * Interesting events.
@@ -42,9 +44,10 @@ interface LoggerInterface
      *
      * @param string $message
      * @param array $context
-     * @return void|null
+     *
+     * @return void
      */
-    public function info($message, array $context = []);
+    public function info(string $message, array $context = []): void;
 
     /**
      * Runtime errors that do not require immediate action but should typically
@@ -52,9 +55,10 @@ interface LoggerInterface
      *
      * @param string $message
      * @param array  $context
+     *
      * @return void
      */
-    public function error($message, array $context = []);
+    public function error(string $message, array $context = []): void;
 
     /**
      * Exceptional occurrences that are not errors.
@@ -64,16 +68,18 @@ interface LoggerInterface
      *
      * @param string $message
      * @param array  $context
+     *
      * @return void
      */
-    public function warning($message, array $context = []);
+    public function warning(string $message, array $context = []): void;
 
     /**
      * Normal but significant events.
      *
      * @param string $message
      * @param array  $context
+     *
      * @return void
      */
-    public function notice($message, array $context = []);
+    public function notice(string $message, array $context = []): void;
 }

@@ -15,15 +15,11 @@ abstract class AbstractDataBuilder implements BuilderInterface
      * List of available parameters of the Entity to Update
      * @var array
      */
-    protected $availableParamsToUpdate = [];
+    protected array $availableParamsToUpdate = [];
+
+    protected ConfigInterface $config;
 
     /**
-     * @var ConfigInterface
-     */
-    protected $config;
-
-    /**
-     * DataBuilderAbstract constructor.
      * @param ConfigInterface $config
      */
     public function __construct(
@@ -36,9 +32,10 @@ abstract class AbstractDataBuilder implements BuilderInterface
      * Filters dataset and Returns list of available only parameters
      *
      * @param array $dataset
+     *
      * @return array
      */
-    protected function filterParameters(array $dataset = [])
+    protected function filterParameters(array $dataset = []): array
     {
         $filteredList = [];
         foreach ($dataset as $key => $value) {

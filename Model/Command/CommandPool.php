@@ -37,7 +37,7 @@ class CommandPool implements CommandPoolInterface
     /**
      * @inheritDoc
      */
-    public function get($commandCode)
+    public function get(string $commandCode): CommandInterface
     {
         if (!isset($this->commands[$commandCode])) {
             throw new NotFoundException(new Phrase('Command %1 does not exist.', [$commandCode]));

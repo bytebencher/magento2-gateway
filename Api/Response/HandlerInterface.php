@@ -19,8 +19,10 @@ interface HandlerInterface
      *
      * @param array $handlingSubject
      * @param array $response
+     *
      * @return void
+     *
      * @throws ResponseHandlerException
      */
-    public function handle(array $handlingSubject, array $response);
+    public function handle(array $handlingSubject, array $response): void;
 }

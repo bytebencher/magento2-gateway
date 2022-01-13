@@ -21,5 +21,5 @@ interface ErrorMessageMapperInterface
      *
      * @return string|null
      */
-    public function getMessage(string $code);
+    public function getMessage(string $code): ?string;
 }

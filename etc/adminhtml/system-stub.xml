@@ -45,7 +45,7 @@
                     <label>API Username</label>
                     <comment><![CDATA[For <strong>Sandbox</strong> mode]]></comment>
                     <depends>
-                        <field id="mode">0</field>
+                        <field id="mode">2</field>
                     </depends>
                 </field>
 
@@ -62,7 +62,7 @@
                     <label>API Password</label>
                     <comment><![CDATA[For <strong>Sandbox</strong> mode]]></comment>
                     <depends>
-                        <field id="mode">0</field>
+                        <field id="mode">2</field>
                     </depends>
                 </field>
 

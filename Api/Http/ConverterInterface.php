@@ -14,8 +14,10 @@ interface ConverterInterface
      * Converts gateway response to ENV structure
      *
      * @param mixed $response
+     *
      * @return array
+     *
      * @throws ConverterException
      */
-    public function convert($response);
+    public function convert($response): array;
 }

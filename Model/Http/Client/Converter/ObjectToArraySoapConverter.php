@@ -13,7 +13,7 @@ class ObjectToArraySoapConverter implements ConverterInterface
     /**
      * @inheritDoc
      */
-    public function convert($response)
+    public function convert($response): array
     {
         $response = (array) $response;
         foreach ($response as $key => $value) {

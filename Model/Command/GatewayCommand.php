@@ -10,9 +10,7 @@ use Magento\Framework\Phrase;
 use SR\Gateway\Api\CommandInterface;
 use SR\Gateway\Api\ErrorMapper\ErrorMessageMapperInterface;
 use SR\Gateway\Api\Http\Client\ClientFactoryInterface;
-use SR\Gateway\Api\Http\Client\ClientInterface;
 use SR\Gateway\Api\Http\TransferFactoryInterface;
-use SR\Gateway\Api\Http\TransferInterface;
 use SR\Gateway\Api\LoggerInterface;
 use SR\Gateway\Api\Request\BuilderInterface;
 use SR\Gateway\Api\Response\HandlerInterface;
@@ -30,43 +28,15 @@ use SR\Gateway\Exception\TransferBuilderException;
  */
 class GatewayCommand implements CommandInterface
 {
-    /**
-     * @var BuilderInterface
-     */
-    protected $requestBuilder;
+    protected BuilderInterface $requestBuilder;
+    protected TransferFactoryInterface $transferFactory;
+    protected ClientFactoryInterface $clientFactory;
+    protected LoggerInterface $logger;
+    protected ?HandlerInterface $handler = null;
+    protected ?ValidatorInterface $validator = null;
+    protected ?ErrorMessageMapperInterface $errorMessageMapper = null;
 
     /**
-     * @var TransferFactoryInterface
-     */
-    protected $transferFactory;
-
-    /**
-     * @var ClientFactoryInterface
-     */
-    protected $clientFactory;
-
-    /**
-     * @var LoggerInterface
-     */
-    protected $logger;
-
-    /**
-     * @var HandlerInterface|null
-     */
-    protected $handler;
-
-    /**
-     * @var ValidatorInterface|null
-     */
-    protected $validator;
-
-    /**
-     * @var ErrorMessageMapperInterface|null
-     */
-    protected $errorMessageMapper;
-
-    /**
-     * GatewayCommand constructor.
      * @param BuilderInterface $requestBuilder
      * @param TransferFactoryInterface $transferFactory
      * @param ClientFactoryInterface $clientFactory
@@ -96,27 +66,23 @@ class GatewayCommand implements CommandInterface
     /**
      * @inheritDoc
      */
-    public function execute(array $commandSubject)
+    public function execute(array $commandSubject): ?ResultInterface
     {
         $result = null;
         $transferO = null;
 
         try {
-            /** @var TransferInterface $transferO */
             $transferO = $this->transferFactory->create(
                 $this->requestBuilder->build($commandSubject)
             );
 
-            /** @var ClientInterface $client */
             $client = $this->clientFactory->create($commandSubject);
 
-            /** @var array $response */
             $response = $client->placeRequest($transferO);
 
             if ($this->validator !== null) {
                 $validationSubject = array_merge($commandSubject, ['response' => $response]);
 
-                /** @var ResultInterface $result */
                 $result = $this->validator->validate($validationSubject);
 
                 if (!$result->isValid()) {
@@ -133,10 +99,6 @@ class GatewayCommand implements CommandInterface
                     $response
                 );
             }
-
-            if ($result instanceof ResultInterface) {
-                return $result;
-            }
         } catch (RequestBuilderException | TransferBuilderException | ResponseHandlerException | ClientException $e) {
             // NOTE: log method is executed before exception throwing
             //$this->log(['transfer' => $transferO, 'exception' => $e]);
@@ -144,6 +106,8 @@ class GatewayCommand implements CommandInterface
             $this->logger->debug($e->getMessage());
             throw new CommandException(new Phrase($e->getMessage()), $e);
         }
+
+        return $result;
     }
 
     /**
@@ -154,7 +118,7 @@ class GatewayCommand implements CommandInterface
      *
      * @throws CommandException
      */
-    protected function processErrors(ResultInterface $result)
+    protected function processErrors(ResultInterface $result): void
     {
         $messages = [];
 

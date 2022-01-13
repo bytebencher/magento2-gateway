@@ -18,8 +18,10 @@ interface CommandPoolInterface
      * Retrieves operation
      *
      * @param string $commandCode
+     *
      * @return CommandInterface
+     *
      * @throws NotFoundException
      */
-    public function get($commandCode);
+    public function get(string $commandCode): CommandInterface;
 }

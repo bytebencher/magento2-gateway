@@ -11,13 +11,9 @@ use SR\Gateway\Api\ErrorMapper\MessageMappingDataInterface;
 
 class ErrorMessageMapper implements ErrorMessageMapperInterface
 {
-    /**
-     * @var MessageMappingDataInterface
-     */
-    private $messageMapping;
+    private MessageMappingDataInterface $messageMapping;
 
     /**
-     * ErrorMessageMapper constructor.
      * @param MessageMappingDataInterface $messageMapping
      */
     public function __construct(MessageMappingDataInterface $messageMapping)
@@ -28,7 +24,7 @@ class ErrorMessageMapper implements ErrorMessageMapperInterface
     /**
      * @inheritDoc
      */
-    public function getMessage(string $code)
+    public function getMessage(string $code): ?string
     {
         $message = $this->messageMapping->get($code);
         return $message ?: $code;

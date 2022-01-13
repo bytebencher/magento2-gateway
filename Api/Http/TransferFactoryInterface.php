@@ -18,8 +18,10 @@ interface TransferFactoryInterface
      * Builds gateway transfer object
      *
      * @param array $request
+     *
      * @return TransferInterface
+     *
      * @throws TransferBuilderException
      */
-    public function create(array $request);
+    public function create(array $request): TransferInterface;
 }

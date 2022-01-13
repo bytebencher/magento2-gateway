@@ -6,15 +6,17 @@
 
 namespace SR\Gateway\Model\Request;
 
+use SR\Gateway\Api\CommandInterface;
+
 class StoreBuilder extends AbstractClientBuilder
 {
     /**
      * @inheritDoc
      */
-    public function build(array $buildSubject)
+    public function build(array $buildSubject): array
     {
         return [
-            self::KEY_STORE_ID => $buildSubject['subject']['store_id'] ?? null,
+            self::KEY_STORE_ID => $buildSubject[CommandInterface::ARGUMENT_SUBJECT]['store_id'] ?? null,
         ];
     }
 }

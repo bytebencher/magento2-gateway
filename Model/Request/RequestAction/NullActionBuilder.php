@@ -13,7 +13,7 @@ class NullActionBuilder extends AbstractClientBuilder
     /**
      * @inheritDoc
      */
-    public function build(array $buildSubject)
+    public function build(array $buildSubject): array
     {
         /**
          * @see: \SR\Gateway\Model\Request\AbstractClientBuilder::KEY_REQUEST_ACTION

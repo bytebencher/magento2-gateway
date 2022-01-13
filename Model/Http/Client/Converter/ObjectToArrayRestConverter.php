@@ -13,9 +13,9 @@ class ObjectToArrayRestConverter implements ConverterInterface
     /**
      * @inheritDoc
      */
-    public function convert($response)
+    public function convert($response): array
     {
-        $decoded = json_decode($response, true);
+        $decoded = \Safe\json_decode($response, true);
         //return $decoded !== null ? $decoded : [];
         return $decoded ?? [];
     }
