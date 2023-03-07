@@ -44,7 +44,7 @@ class DbHandler extends AbstractProcessingHandler
     /**
      * @inheritDoc
      */
-    public function isHandling(array $record)
+    public function isHandling(array $record): bool
     {
         // NOTE: check if the Module is active
         if (!$this->config->getValue(Config::KEY_CONFIG_ACTIVE, Config::GROUP_PATH_GENERAL)) {
