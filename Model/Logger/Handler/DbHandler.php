@@ -68,7 +68,7 @@ class DbHandler extends AbstractProcessingHandler
     /**
      * @inheritDoc
      */
-    protected function write(array $record)
+    protected function write(array $record): void
     {
         // TODO: Implement write() method.
         //     just example was added (how it can be used)

@@ -57,7 +57,7 @@ class CliHandler extends AbstractProcessingHandler
     /**
      * @inheritDoc
      */
-    protected function write(array $record)
+    protected function write(array $record): void
     {
         $this->consoleOutput->writeln($record['formatted']);
     }
