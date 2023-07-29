@@ -8,7 +8,7 @@
         "proprietary"
     ],
     "require": {
-        "php": "~7.4",
+        "php": "~7.4|~8.1",
         "ext-json": "*",
         "ext-soap": "*",
         "thecodingmachine/safe": "*",
