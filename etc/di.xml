@@ -130,16 +130,16 @@
     <!-- start: Logger definitions -->
     <type name="SR\Gateway\Model\Logger\Logger">
         <arguments>
+            <!-- IMPORTANT: don't add sortOrder attribute to any argument element. It will break the Magento compilation process -->
             <!-- @see \SR\Gateway\Model\Config\Config::EXT_ALIAS -->
-            <!--<argument name="name" xsi:type="string">srgateway</argument>--><!-- NOTE: The logging channel -->
+            <argument name="name" xsi:type="string">srgateway</argument><!-- NOTE: The logging channel -->
 
             <!--
-                NOTE: the order of handlers is important.
-                    Fore more details please dive into logic of the Handler Processing flow
+                NOTE: the order of handlers is important. For more details please dive into logic of the Handler Processing flow
              -->
             <argument name="handlers"  xsi:type="array">
-                <item name="cli" sortOrder="30" xsi:type="object">SR\Gateway\Model\Logger\Handler\CliHandler</item>
-                <item name="file" sortOrder="40" xsi:type="object">SR\Gateway\Model\Logger\Handler\FileHandler</item>
+                <item name="cli" xsi:type="object">SR\Gateway\Model\Logger\Handler\CliHandler</item>
+                <item name="file" xsi:type="object">SR\Gateway\Model\Logger\Handler\FileHandler</item>
                 <!-- NOTE: current state of this handler is just a SAMPLE. Please implement specific handler logic in its own scope-->
                 <!--<item name="db" sortOrder="50" xsi:type="object">SR\Gateway\Model\Logger\Handler\DbHandler</item>-->
             </argument>
