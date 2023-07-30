@@ -131,7 +131,7 @@
     <type name="SR\Gateway\Model\Logger\Logger">
         <arguments>
             <!-- @see \SR\Gateway\Model\Config\Config::EXT_ALIAS -->
-            <argument name="name" xsi:type="string">srgateway</argument><!-- NOTE: The logging channel -->
+            <!--<argument name="name" xsi:type="string">srgateway</argument>--><!-- NOTE: The logging channel -->
 
             <!--
                 NOTE: the order of handlers is important.
