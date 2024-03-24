@@ -73,7 +73,7 @@ class Rest implements ClientInterface
             }
 
             // NOTE: the TRICK to use PATCH method
-            if ($transferObject->getMethod() === HttpRequest::METHOD_PATCH) {
+            if ($transferObject->getMethod() === HttpRequest::METHOD_PATCH || $transferObject->getMethod() === HttpRequest::METHOD_GET) {
                 $clientAdapter->addOption(CURLOPT_CUSTOMREQUEST, $transferObject->getMethod());
                 $clientAdapter->addOption(CURLOPT_POSTFIELDS, $requestBody);
             } else if ($transferObject->getMethod() === HttpRequest::METHOD_DELETE) {

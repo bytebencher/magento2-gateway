@@ -61,8 +61,8 @@ abstract class AbstractTransferFactory implements TransferFactoryInterface
 
         $this->cleanRequestSubject($request);
 
-        // NOTE: POST, PATCH can send BODY, but GET, DELETE - can't
-        if (in_array($httpRequestMethod, [HttpRequest::METHOD_POST, HttpRequest::METHOD_PUT, HttpRequest::METHOD_PATCH], true)) {
+        // NOTE: POST, PATCH can send BODY, DELETE - can't
+        if (in_array($httpRequestMethod, [HttpRequest::METHOD_POST, HttpRequest::METHOD_PUT, HttpRequest::METHOD_PATCH, HttpRequest::METHOD_GET], true)) {
             // NOTE: body SHOULD contain list of needed parameters ONLY (it means all redundant, temp etc. MUST be removed)
             $this->transferBuilder->setBody($request);
 

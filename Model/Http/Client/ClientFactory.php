@@ -14,6 +14,9 @@ use SR\Gateway\Api\Http\Client\ClientInterface;
 use SR\Gateway\Exception\ClientException;
 use SR\Gateway\Model\Config\Config;
 use SR\Gateway\Model\System\Config\Source\HttpClient;
+use SR\Gateway\Model\Http\Client\Guzzle;
+use SR\Gateway\Model\Http\Client\Rest;
+use SR\Gateway\Model\Http\Client\Soap;
 
 class ClientFactory implements ClientFactoryInterface
 {
@@ -35,9 +38,9 @@ class ClientFactory implements ClientFactoryInterface
         ConfigInterface $config,
         array $clientArguments = []
     ) {
-        $this->objectManager = $objectManager;
-        $this->config = $config;
-        $this->clientArguments = $clientArguments;
+        $this->objectManager    = $objectManager;
+        $this->config           = $config;
+        $this->clientArguments  = $clientArguments;
     }
 
     /**
@@ -54,6 +57,9 @@ class ClientFactory implements ClientFactoryInterface
 
             case HttpClient::SOAP:
                 return $this->objectManager->create(Soap::class, $this->clientArguments);
+
+            case HttpClient::GUZZLE:
+                return $this->objectManager->create(Guzzle::class, $this->clientArguments);
         }
 
         throw new ClientException(new Phrase('Http Client "%1" is invalid.', [$httpClientCode]));
