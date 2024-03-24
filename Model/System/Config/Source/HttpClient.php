@@ -13,6 +13,7 @@ class HttpClient implements OptionSourceInterface
 {
     public const REST = 1;
     public const SOAP = 2;
+    public const GUZZLE = 3;
 
     /**
      * @inheritDoc
@@ -20,8 +21,9 @@ class HttpClient implements OptionSourceInterface
     public function toOptionArray()
     {
         return [
-            ['value' => self::REST, 'label' => new Phrase('REST')],
-            ['value' => self::SOAP, 'label' => new Phrase('SOAP')],
+            ['value' => self::REST, 'label' => new Phrase('REST (CURL Client)')],
+            ['value' => self::SOAP, 'label' => new Phrase('SOAP (CURL Client)')],
+            ['value' => self::GUZZLE, 'label' => new Phrase('GUZZLE Client')],
         ];
     }
 
@@ -33,8 +35,9 @@ class HttpClient implements OptionSourceInterface
     public function toArray(): array
     {
         return [
-            self::REST => new Phrase('REST'),
-            self::SOAP => new Phrase('SOAP'),
+            self::REST => new Phrase('REST (CURL Client)'),
+            self::SOAP => new Phrase('SOAP (CURL Client)'),
+            self::GUZZLE => new Phrase('GUZZLE Client'),
         ];
     }
 }
