@@ -11,6 +11,7 @@ namespace SR\Gateway\Model\Http\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Psr7\Response;
 use GuzzleHttp\Psr7\ResponseFactory;
+use Psr\Http\Message\ResponseInterface;
 use GuzzleHttp\ClientFactory as GuzzleClientFactory;
 use GuzzleHttp\Client;
 use SR\Gateway\Api\Http\TransferInterface;
@@ -70,20 +71,34 @@ class Guzzle extends Client implements ClientInterface
         return $response;
     }
 
-    private function doRequest(TransferInterface $transferObject): Response
+    private function doRequest(TransferInterface $transferObject): ResponseInterface
     {
         try {
             $client = $this->clientFactory->create();
             $response = $client->request(
                 $transferObject->getMethod(),
                 $transferObject->getUri(),
-                ['json' => $transferObject->getBody() ]
+                $this->getOptions($transferObject)
             );
         } catch (GuzzleException $exception) {
             throw new ClientException(__($exception->getMessage()));
         }
 
         return $response;
+    }
+
+    private function getOptions($transferObject): array
+    {
+        $options = [];
+        if (isset($transferObject->getHeaders()['Authorization'])) {
+            $options['headers']['Authorization'] = $transferObject->getHeaders()['Authorization'];
+        }
+
+        if ($transferObject->getBody()) {
+            $options['json'] = $transferObject->getBody();
+        }
+
+        return $options;
     }
 
 }
