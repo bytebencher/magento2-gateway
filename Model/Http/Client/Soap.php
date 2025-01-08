@@ -47,9 +47,10 @@ class Soap implements ClientInterface
             'endpoint_url' => $transferObject->getUri(),
             'headers' => $transferObject->getHeaders(),
             'request_method' => $transferObject->getMethod(),
+            'location' => '',
             //'user' => $transferObject->getAuthUsername(),// TODO: uncomment when it is needed
             //'password' => $transferObject->getAuthPassword(),// TODO: uncomment when it is needed
-            'request' => $transferObject->getBody(),
+            'request' => $transferObject->getBody()
         ];
         $response['object'] = [];
 
@@ -57,12 +58,19 @@ class Soap implements ClientInterface
             $wsdl = $transferObject->getClientConfig()[ClientConfigBuilder::PARAM_WSDL] ?? null;
 
             /** @var \SoapClient $clientAdapter */
-            $clientAdapter = $this->clientAdapterFactory->create($wsdl, ['trace' => true]);
-            // NOTE: URI of the WSDL file or NULL if working in non-WSDL mode.
+            $clientAdapter = $this->clientAdapterFactory->create($wsdl, [
+                    'trace' => true
+                ]
+            );
 
-            if ($wsdl === null) {
-                // NOTE: set the endpoint URL that will be touched by following SOAP requests.
-                //     Calling this method is optional. The SoapClient uses the endpoint from the WSDL file by default.
+            /**
+             * URI of the WSDL file or NULL if working in non-WSDL mode.
+             * Force set location in case URI include query string params.
+             * NOTE: set the endpoint URL that will be touched by following SOAP requests.
+             * Calling this method is optionael. The SoapClient uses the endpoint from the WSDL file by default.
+             */
+            if ($wsdl === null || $this->hasQueryString($transferObject->getUri())) {
+                $log['location'] = $transferObject->getUri();
                 $clientAdapter->__setLocation($transferObject->getUri());
             }
 
@@ -98,12 +106,26 @@ class Soap implements ClientInterface
                 $response['last_response'] = $clientAdapter->__getLastResponse();
 
                 $log['response'] = $response['last_response'];
+                $this->logger->debug('-----------------------------------');
                 $this->logger->debug($log);
             }
         }
 
         return $response;
     }
+
+    /**
+     * Check if a URI contains a query string.
+     *
+     * @param string $uri The URI to check.
+     * @return bool True if the URI contains a query string, false otherwise.
+     */
+    function hasQueryString(string $uri): bool
+    {
+        $parsedUri = parse_url($uri);
+        return isset($parsedUri['query']) && $parsedUri['query'] !== '';
+    }
+
 
     /**
      * Returns list of applicable SOAP Headers
