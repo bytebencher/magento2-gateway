@@ -21,6 +21,7 @@ use SR\Gateway\Exception\CommandException;
 use SR\Gateway\Exception\RequestBuilderException;
 use SR\Gateway\Exception\ResponseHandlerException;
 use SR\Gateway\Exception\TransferBuilderException;
+use SR\Gateway\Api\Response\DataModifierInterface;
 
 /**
  * Class GatewayCommand
@@ -35,15 +36,17 @@ class GatewayCommand implements CommandInterface
     protected ?HandlerInterface $handler = null;
     protected ?ValidatorInterface $validator = null;
     protected ?ErrorMessageMapperInterface $errorMessageMapper = null;
+    private ?DataModifierInterface $dataModifier;
 
     /**
-     * @param BuilderInterface $requestBuilder
-     * @param TransferFactoryInterface $transferFactory
-     * @param ClientFactoryInterface $clientFactory
-     * @param LoggerInterface $logger
-     * @param HandlerInterface|null $handler
-     * @param ValidatorInterface|null $validator
+     * @param BuilderInterface                $requestBuilder
+     * @param TransferFactoryInterface        $transferFactory
+     * @param ClientFactoryInterface          $clientFactory
+     * @param LoggerInterface                 $logger
+     * @param HandlerInterface|null           $handler
+     * @param ValidatorInterface|null         $validator
      * @param ErrorMessageMapperInterface|null $errorMessageMapper
+     * @param DataModifierInterface            $dataModifier
      */
     public function __construct(
         BuilderInterface $requestBuilder,
@@ -52,15 +55,17 @@ class GatewayCommand implements CommandInterface
         LoggerInterface $logger,
         HandlerInterface $handler = null,
         ValidatorInterface $validator = null,
-        ErrorMessageMapperInterface $errorMessageMapper = null
+        ErrorMessageMapperInterface $errorMessageMapper = null,
+        DataModifierInterface $dataModifier = null
     ) {
-        $this->requestBuilder = $requestBuilder;
-        $this->transferFactory = $transferFactory;
-        $this->clientFactory = $clientFactory;
-        $this->logger = $logger;
-        $this->handler = $handler;
-        $this->validator = $validator;
-        $this->errorMessageMapper = $errorMessageMapper;
+        $this->requestBuilder    = $requestBuilder;
+        $this->transferFactory   = $transferFactory;
+        $this->clientFactory     = $clientFactory;
+        $this->logger            = $logger;
+        $this->handler           = $handler;
+        $this->validator         = $validator;
+        $this->errorMessageMapper= $errorMessageMapper;
+        $this->dataModifier = $dataModifier;
     }
 
     /**
@@ -68,41 +73,41 @@ class GatewayCommand implements CommandInterface
      */
     public function execute(array $commandSubject): ?ResultInterface
     {
-        $result = null;
+        $result    = null;
         $transferO = null;
 
         try {
+            // 1) build and send request
             $transferO = $this->transferFactory->create(
                 $this->requestBuilder->build($commandSubject)
             );
-
-            $client = $this->clientFactory->create($commandSubject);
-
+            $client   = $this->clientFactory->create($commandSubject);
             $response = $client->placeRequest($transferO);
 
+            // 2) validate
             if ($this->validator !== null) {
                 $validationSubject = array_merge($commandSubject, ['response' => $response]);
-
                 $result = $this->validator->validate($validationSubject);
-
                 if (!$result->isValid()) {
-                    // NOTE: log method is executed before ErrorProcessing because ErrorProcessing throws an exception
-                    //$this->log(['transfer' => $transferO, 'result' => $result, 'validationSubject' => $validationSubject]);
-
                     $this->processErrors($result);
                 }
             }
 
+            // 3) handle
             if ($this->handler !== null) {
-                $this->handler->handle(
-                    $commandSubject,
-                    $response
-                );
+                $this->handler->handle($commandSubject, $response);
             }
-        } catch (RequestBuilderException | TransferBuilderException | ResponseHandlerException | ClientException $e) {
-            // NOTE: log method is executed before exception throwing
-            //$this->log(['transfer' => $transferO, 'exception' => $e]);
 
+            if ($this->dataModifier !== null && $result !== null) {
+                $this->dataModifier->modify($commandSubject, $result);
+            }
+
+        } catch (
+        RequestBuilderException |
+        TransferBuilderException |
+        ResponseHandlerException |
+        ClientException $e
+        ) {
             $this->logger->debug($e->getMessage());
             throw new CommandException(new Phrase($e->getMessage()), $e);
         }
@@ -115,35 +120,29 @@ class GatewayCommand implements CommandInterface
      * Throws an exception with mapped message or default error.
      *
      * @param ResultInterface $result
-     *
      * @throws CommandException
      */
     protected function processErrors(ResultInterface $result): void
     {
         $messages = [];
-
         foreach ($result->getFailsDescription() as $fail) {
-            $code = '';
+            $code    = '';
             $message = null;
-            $mapped = null;
-
             if (is_array($fail)) {
-                $code = (string)($fail['code'] ?? null);
-                $message = $fail['message'] ?? null;
-                $fail = implode('::', $fail);
+                $code    = (string)($fail['code'] ?? '');
+                $message = $fail['message'] ?? '';
+                $fail    = implode('::', $fail);
             } else {
-                $message = $fail instanceof Phrase ? $fail->getText() : $fail;
+                $message = $fail instanceof Phrase ? $fail->getText() : (string)$fail;
             }
 
-            // NOTE: map Message by Code if it is applicable
-            // NOTE: error messages mapper can be not configured if custom error messages handler does not exist.
-            if ($this->errorMessageMapper !== null) {
-                $mapped = (string) $this->errorMessageMapper->getMessage($code);
-                $mapped = $mapped === $code ? $fail : $mapped;
-            }
+            // map code → message if mapper provided
+            $mapped = $this->errorMessageMapper
+                ? (string)$this->errorMessageMapper->getMessage($code)
+                : $code;
+            $mapped = $mapped === $code ? $fail : $mapped;
 
             $messages[] = (new Phrase($mapped ?: $message))->render();
-
             $this->logger->debug(new Phrase('Gateway Error :: %1', [$message]));
         }
 

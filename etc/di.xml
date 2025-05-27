@@ -1,147 +1,116 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <!--
   ~ Copyright © 2022 Studio Raz. All rights reserved.
   ~ See LICENCE file for license details.
   -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
 
-<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
-    <!-- start Preferences -->
-    <preference for="SR\Gateway\Api\Config\ConfigInterface" type="SR\Gateway\Model\Config\Config" />
-    <preference for="SR\Gateway\Api\LoggerInterface" type="SR\Gateway\Model\Logger"/>
-    <preference for="SR\Gateway\Api\ModuleStateInterface" type="SR\Gateway\Model\ModuleState"/>
-
-    <preference for="SR\Gateway\Model\GatewayAdapterFactoryInterface" type="SR\Gateway\Model\GatewayAdapterFactory" />
-    <preference for="SR\Gateway\Model\GatewayAdapterPoolInterface" type="SR\Gateway\Model\GatewayAdapterPool"/>
-
-    <preference for="SR\Gateway\Api\CommandInterface" type="SR\Gateway\Model\Command\GatewayCommand" />
-    <preference for="SR\Gateway\Api\CommandPoolInterface" type="SR\Gateway\Model\Command\CommandPool" />
-    <preference for="SR\Gateway\Api\Http\Client\ClientInterface" type="SR\Gateway\Model\Http\Client\Soap"/>
-    <preference for="SR\Gateway\Api\Http\Client\ClientFactoryInterface" type="SR\Gateway\Model\Http\Client\ClientFactory"/>
-    <preference for="SR\Gateway\Api\ErrorMapper\MessageMappingDataInterface" type="SR\Gateway\Model\ErrorMapper\NullMappingData" />
-    <preference for="SR\Gateway\Api\ErrorMapper\ErrorMessageMapperInterface" type="SR\Gateway\Model\ErrorMapper\ErrorMessageMapper" />
-    <preference for="SR\Gateway\Api\Http\TransferInterface" type="SR\Gateway\Model\Http\Transfer" />
-    <preference for="SR\Gateway\Api\Http\TransferFactoryInterface" type="SR\Gateway\Model\Http\TransferFactory"/>
-    <preference for="SR\Gateway\Api\Response\HandlerInterface" type="SR\Gateway\Model\Response\NullHandler"/>
-    <preference for="SR\Gateway\Api\Validator\ResultInterface" type="SR\Gateway\Model\Validator\Result" />
-    <preference for="SR\Gateway\Api\Validator\ResultDataInterface" type="SR\Gateway\Model\Validator\ResultData"/>
-    <preference for="SR\Gateway\Api\Validator\ValidatorInterface" type="SR\Gateway\Model\Validator\NullValidator" />
-    <!-- end Preferences -->
+    <!-- ====================== Preferences ====================== -->
+    <preference for="SR\Gateway\Api\Config\ConfigInterface"                type="SR\Gateway\Model\Config\Config" />
+    <preference for="SR\Gateway\Api\LoggerInterface"                      type="SR\Gateway\Model\Logger"/>
+    <preference for="SR\Gateway\Api\ModuleStateInterface"                 type="SR\Gateway\Model\ModuleState"/>
+    <preference for="SR\Gateway\Model\GatewayAdapterFactoryInterface"     type="SR\Gateway\Model\GatewayAdapterFactory" />
+    <preference for="SR\Gateway\Model\GatewayAdapterPoolInterface"        type="SR\Gateway\Model\GatewayAdapterPool"/>
+    <preference for="SR\Gateway\Api\CommandInterface"                    type="SR\Gateway\Model\Command\GatewayCommand" />
+    <preference for="SR\Gateway\Api\CommandPoolInterface"                type="SR\Gateway\Model\Command\CommandPool" />
+    <preference for="SR\Gateway\Api\Http\Client\ClientInterface"         type="SR\Gateway\Model\Http\Client\Soap"/>
+    <preference for="SR\Gateway\Api\Http\Client\ClientFactoryInterface"  type="SR\Gateway\Model\Http\Client\ClientFactory"/>
+    <preference for="SR\Gateway\Api\ErrorMapper\MessageMappingDataInterface"   type="SR\Gateway\Model\ErrorMapper\NullMappingData" />
+    <preference for="SR\Gateway\Api\ErrorMapper\ErrorMessageMapperInterface"   type="SR\Gateway\Model\ErrorMapper\ErrorMessageMapper" />
+    <preference for="SR\Gateway\Api\Http\TransferInterface"             type="SR\Gateway\Model\Http\Transfer" />
+    <preference for="SR\Gateway\Api\Http\TransferFactoryInterface"      type="SR\Gateway\Model\Http\TransferFactory"/>
+    <preference for="SR\Gateway\Api\Response\HandlerInterface"          type="SR\Gateway\Model\Response\NullHandler"/>
+    <preference for="SR\Gateway\Api\Validator\ResultInterface"          type="SR\Gateway\Model\Validator\Result" />
+    <preference for="SR\Gateway\Api\Validator\ResultDataInterface"      type="SR\Gateway\Model\Validator\ResultData"/>
+    <preference for="SR\Gateway\Api\Validator\ValidatorInterface"       type="SR\Gateway\Model\Validator\NullValidator" />
+    <preference for="SR\Gateway\Api\Response\DataModifierInterface"     type="SR\Gateway\Model\Response\NullDataModifier" />
+    <!-- ========================================================= -->
 
 
-    <!-- start: Extension Activity STATE -->
+    <!-- ================ Extension Activity STATE ================ -->
     <type name="SR\Gateway\Model\ModuleState">
         <arguments>
-            <!--
-                NOTE: use such approach to force Enable/Disable the module
-                @see \SR\Gateway\Model\ModuleState::isActive
-            -->
             <argument name="config" xsi:type="object">SR\Gateway\Model\Config\Config</argument>
-            <!--<argument name="forceActive" xsi:type="boolean">true</argument>-->
+            <!-- <argument name="forceActive" xsi:type="boolean">true</argument> -->
         </arguments>
     </type>
-    <!-- end: Extension Activity STATE -->
+    <!-- ======================================================== -->
 
 
-    <!-- start: Gateway Adapter configuration -->
+    <!-- ================ Gateway Adapter configuration ================ -->
     <type name="SR\Gateway\Model\GatewayAdapter">
         <arguments>
-            <argument name="commandPool" xsi:type="object">SrGatewayCommandPool</argument>
+            <!-- existing command pool injection -->
+            <argument name="commandPool"  xsi:type="object">SrGatewayCommandPool</argument>
         </arguments>
     </type>
-    <!-- start: Gateway Adapter configuration -->
+    <!-- ============================================================ -->
 
 
-
-    <!-- start: Commands infrastructure -->
+    <!-- ================ Commands infrastructure ================ -->
     <virtualType name="SrGatewayCommandPool" type="SR\Gateway\Model\Command\CommandPool">
         <arguments>
             <argument name="commands" xsi:type="array">
-<!--                <item name="export_product" xsi:type="string">SrGatewayExportProductCommand</item>-->
-<!--                <item name="fetch_product_information" xsi:type="string">SrGatewayFetchOrderInfoCommand</item>-->
-<!--                <item name="import_product" xsi:type="string">SrGatewayImportProductCommand</item>-->
-<!--                <item name="update_product" xsi:type="string">SrGatewayUpdateProductCommand</item>-->
-
-<!--                <item name="export_order" xsi:type="string">SrGatewayExportOrderCommand</item>-->
-<!--                <item name="fetch_order_information" xsi:type="string">SrGatewayFetchOrderInfoCommand</item>-->
-<!--                <item name="import_order" xsi:type="string">SrGatewayImportOrderCommand</item>-->
-<!--                <item name="update_order" xsi:type="string">SrGatewayUpdateOrderCommand</item>-->
-
-<!--                <item name="export_customer" xsi:type="string">SrGatewayExportCustomerCommand</item>-->
-<!--                <item name="fetch_customer_information" xsi:type="string">SrGatewayFetchCustomerInfoCommand</item>-->
-<!--                <item name="import_customer" xsi:type="string">SrGatewayImportCustomerCommand</item>-->
-<!--                <item name="update_customer" xsi:type="string">SrGatewayUpdateCustomerCommand</item>-->
+                <!-- define your commands here -->
             </argument>
         </arguments>
     </virtualType>
-    <!-- end: Commands infrastructure -->
+    <!-- ======================================================== -->
 
 
-    <!-- start: Command: ABSTRACT -->
-    <virtualType name="AbstractSrGatewayCommand" type="SR\Gateway\Model\Command\GatewayCommand">
+    <!-- ================ Abstract command, builders & handlers ================ -->
+    <virtualType name="AbstractSrGatewayCommand"      type="SR\Gateway\Model\Command\GatewayCommand">
         <arguments>
-            <argument name="requestBuilder" xsi:type="object">AbstractSrGatewayRequestBuilder</argument>
+            <argument name="requestBuilder"  xsi:type="object">AbstractSrGatewayRequestBuilder</argument>
             <argument name="transferFactory" xsi:type="object">SR\Gateway\Model\Http\TransferFactory</argument>
-            <argument name="clientFactory" xsi:type="object">SR\Gateway\Model\Http\Client\ClientFactory</argument>
-            <!-- NOTE: override if specific validator is needed -->
-            <argument name="validator" xsi:type="object">SR\Gateway\Model\Validator\NullValidator</argument>
-            <argument name="handler" xsi:type="object">AbstractSrGatewayHandlerChain</argument>
+            <argument name="clientFactory"   xsi:type="object">SR\Gateway\Model\Http\Client\ClientFactory</argument>
+            <argument name="validator"       xsi:type="object">SR\Gateway\Model\Validator\NullValidator</argument>
+            <argument name="handler"         xsi:type="object">AbstractSrGatewayHandlerChain</argument>
+            <argument name="dataModifier"     xsi:type="object">AbstractSrGatewayDataModifierChain</argument>
             <argument name="errorMessageMapper" xsi:type="object">SR\Gateway\Model\ErrorMapper\ErrorMessageMapper</argument>
         </arguments>
     </virtualType>
 
-    <!-- NOTE: it SHOULD BE extended with custom specific Builders -->
     <virtualType name="AbstractSrGatewayRequestBuilder" type="SR\Gateway\Model\Request\BuilderComposite">
         <arguments>
             <argument name="builders" xsi:type="array">
-                <!-- NOTE: is used to pass specific Store ID into Builders/Transfer/HttpClient -->
-                <item name="store" xsi:type="string">SR\Gateway\Model\Request\StoreBuilder</item>
-                <item name="api_credentials" xsi:type="string">SR\Gateway\Model\Request\ApiCredentialsBuilder</item>
-                <item name="api_endpoint" xsi:type="string">SR\Gateway\Model\Request\ApiEndpointBuilder</item>
-                <!-- @see \SR\Gateway\Model\Request\AbstractClientBuilder RequestMethod children -->
-                <item name="request_method" xsi:type="string">SR\Gateway\Model\Request\RequestMethod\GetRequestMethodBuilder</item>
-                <item name="request_action" xsi:type="string">SR\Gateway\Model\Request\RequestAction\NullActionBuilder</item>
-                <item name="client_config" xsi:type="string">SR\Gateway\Model\Request\ClientConfigBuilder</item>
-                <item name="client_headers" xsi:type="string">SR\Gateway\Model\Request\ClientHeadersBuilder</item>
+                <item name="store"            xsi:type="string">SR\Gateway\Model\Request\StoreBuilder</item>
+                <item name="api_credentials"  xsi:type="string">SR\Gateway\Model\Request\ApiCredentialsBuilder</item>
+                <item name="api_endpoint"     xsi:type="string">SR\Gateway\Model\Request\ApiEndpointBuilder</item>
+                <item name="request_method"   xsi:type="string">SR\Gateway\Model\Request\RequestMethod\GetRequestMethodBuilder</item>
+                <item name="request_action"   xsi:type="string">SR\Gateway\Model\Request\RequestAction\NullActionBuilder</item>
+                <item name="client_config"    xsi:type="string">SR\Gateway\Model\Request\ClientConfigBuilder</item>
+                <item name="client_headers"   xsi:type="string">SR\Gateway\Model\Request\ClientHeadersBuilder</item>
             </argument>
         </arguments>
     </virtualType>
 
-    <!-- NOTE: it SHOULD BE extended with custom specific Builders -->
     <virtualType name="AbstractSrGatewayHandlerChain" type="SR\Gateway\Model\Response\HandlerChain">
         <arguments>
             <argument name="handlers" xsi:type="array">
-                <!-- NOTE: just a STUB. CAN BE overridden with custom Handler -->
                 <item name="default" xsi:type="string">SR\Gateway\Model\Response\NullHandler</item>
             </argument>
         </arguments>
     </virtualType>
-    <!-- end: Command: ABSTRACT -->
 
-    <!-- start: BODY of specific COMMAND DEFINITION(s) -->
-        <!-- TODO: implement definitions for specific commands (in specific module scope) -->
-        <!--
-             NOTE: the Commands can be based on SAMPLE of ABSTRACT COMMAND described above
-                 or can have its own implementation
-        -->
-    <!-- end: BODY of specific COMMAND DEFINITION(s) -->
+    <virtualType name="AbstractSrGatewayDataModifierChain" type="SR\Gateway\Model\Response\DataModifierChain">
+        <arguments>
+            <argument name="modifiers" xsi:type="array">
+                <item name="default" xsi:type="string">SR\Gateway\Model\Response\NullDataModifier</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <!-- ======================================================================== -->
 
 
-    <!-- start: Logger definitions -->
+    <!-- ================ Logger definitions ================ -->
     <type name="SR\Gateway\Model\Logger\Logger">
         <arguments>
-            <!-- IMPORTANT: don't add sortOrder attribute to any argument element. It will break the Magento compilation process -->
-            <!-- @see \SR\Gateway\Model\Config\Config::EXT_ALIAS -->
-            <argument name="name" xsi:type="string">srgateway</argument><!-- NOTE: The logging channel -->
-
-            <!--
-                NOTE: the order of handlers is important. For more details please dive into logic of the Handler Processing flow
-             -->
-            <argument name="handlers"  xsi:type="array">
-                <item name="cli" xsi:type="object">SR\Gateway\Model\Logger\Handler\CliHandler</item>
+            <argument name="name"     xsi:type="string">srgateway</argument>
+            <argument name="handlers" xsi:type="array">
+                <item name="cli"  xsi:type="object">SR\Gateway\Model\Logger\Handler\CliHandler</item>
                 <item name="file" xsi:type="object">SR\Gateway\Model\Logger\Handler\FileHandler</item>
-                <!-- NOTE: current state of this handler is just a SAMPLE. Please implement specific handler logic in its own scope-->
-                <!--<item name="db" sortOrder="50" xsi:type="object">SR\Gateway\Model\Logger\Handler\DbHandler</item>-->
             </argument>
         </arguments>
     </type>
@@ -152,10 +121,10 @@
         </arguments>
     </type>
     <virtualType name="AbstractSrGatewayLogger" type="SR\Gateway\Model\Logger" />
-    <!-- end: Logger definitions -->
+    <!-- ===================================================== -->
 
 
-    <!-- start: Gateway Http Client definitions -->
+    <!-- ================ Gateway HTTP Client definitions ================ -->
     <type name="SR\Gateway\Model\Http\Client\Rest">
         <arguments>
             <argument name="converter" xsi:type="object">SR\Gateway\Model\Http\Client\Converter\ObjectToArrayRestConverter</argument>
@@ -166,5 +135,6 @@
             <argument name="converter" xsi:type="object">SR\Gateway\Model\Http\Client\Converter\ObjectToArraySoapConverter</argument>
         </arguments>
     </type>
-    <!-- end: Gateway Http Client definitions -->
+    <!-- ===================================================== -->
+
 </config>
