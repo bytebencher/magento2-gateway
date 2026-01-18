@@ -49,7 +49,12 @@ class ClientFactory implements ClientFactoryInterface
     public function create(array $subject, array $arguments = []): ClientInterface
     {
         $storeId = $subject['store_id'] ?? null;
-        $httpClientCode = $this->config->getValue(Config::KEY_CONFIG_HTTP_CLIENT, Config::DEFAULT_PATH_GROUP, $storeId) ?: null;
+
+        if (method_exists($this->config, 'getClient')) {
+            $httpClientCode = $this->config->getClient($storeId);
+        } else {
+            $httpClientCode = $this->config->getValue(Config::KEY_CONFIG_HTTP_CLIENT, Config::DEFAULT_PATH_GROUP, $storeId) ?: null;
+        }
 
         switch ($httpClientCode) {
             case HttpClient::REST:
