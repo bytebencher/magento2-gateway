@@ -91,12 +91,12 @@ Available HTTP client values:
 
 ## Files you will commonly extend
 
-- `/home/runner/work/magento2-gateway/magento2-gateway/etc/di.xml`
-- `/home/runner/work/magento2-gateway/magento2-gateway/etc/adminhtml/system-stub.xml`
-- `/home/runner/work/magento2-gateway/magento2-gateway/etc/config-stub.xml`
-- `/home/runner/work/magento2-gateway/magento2-gateway/Model/GatewayAdapter.php`
-- `/home/runner/work/magento2-gateway/magento2-gateway/Model/Command/GatewayCommand.php`
-- `/home/runner/work/magento2-gateway/magento2-gateway/Model/Config/Config.php`
+- `etc/di.xml`
+- `etc/adminhtml/system-stub.xml`
+- `etc/config-stub.xml`
+- `Model/GatewayAdapter.php`
+- `Model/Command/GatewayCommand.php`
+- `Model/Config/Config.php`
 
 ## Typical integration workflow
 
