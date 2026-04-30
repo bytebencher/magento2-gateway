@@ -1,15 +1,15 @@
 <?php
 /*
- * Copyright © 2022 Studio Raz. All rights reserved.
+ * Copyright © 2022 ByteBencher. All rights reserved.
  * See LICENCE file for license details.
  */
 
-namespace SR\Gateway\Api\ErrorMapper;
+namespace ByteBencher\Gateway\Api\ErrorMapper;
 
 /**
  * Interface ErrorMessageMapperInterface
  *
- * @package SR\Gateway\Api\ErrorMapper
+ * @package ByteBencher\Gateway\Api\ErrorMapper
  */
 interface ErrorMessageMapperInterface
 {

@@ -1,37 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  ~ Copyright © 2022 Studio Raz. All rights reserved.
+  ~ Copyright © 2022 ByteBencher. All rights reserved.
   ~ See LICENCE file for license details.
   -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
 
     <!-- ====================== Preferences ====================== -->
-    <preference for="SR\Gateway\Api\Config\ConfigInterface"                type="SR\Gateway\Model\Config\Config" />
-    <preference for="SR\Gateway\Api\LoggerInterface"                      type="SR\Gateway\Model\Logger"/>
-    <preference for="SR\Gateway\Api\ModuleStateInterface"                 type="SR\Gateway\Model\ModuleState"/>
-    <preference for="SR\Gateway\Model\GatewayAdapterFactoryInterface"     type="SR\Gateway\Model\GatewayAdapterFactory" />
-    <preference for="SR\Gateway\Model\GatewayAdapterPoolInterface"        type="SR\Gateway\Model\GatewayAdapterPool"/>
-    <preference for="SR\Gateway\Api\CommandInterface"                    type="SR\Gateway\Model\Command\GatewayCommand" />
-    <preference for="SR\Gateway\Api\CommandPoolInterface"                type="SR\Gateway\Model\Command\CommandPool" />
-    <preference for="SR\Gateway\Api\Http\Client\ClientInterface"         type="SR\Gateway\Model\Http\Client\Soap"/>
-    <preference for="SR\Gateway\Api\Http\Client\ClientFactoryInterface"  type="SR\Gateway\Model\Http\Client\ClientFactory"/>
-    <preference for="SR\Gateway\Api\ErrorMapper\MessageMappingDataInterface"   type="SR\Gateway\Model\ErrorMapper\NullMappingData" />
-    <preference for="SR\Gateway\Api\ErrorMapper\ErrorMessageMapperInterface"   type="SR\Gateway\Model\ErrorMapper\ErrorMessageMapper" />
-    <preference for="SR\Gateway\Api\Http\TransferInterface"             type="SR\Gateway\Model\Http\Transfer" />
-    <preference for="SR\Gateway\Api\Http\TransferFactoryInterface"      type="SR\Gateway\Model\Http\TransferFactory"/>
-    <preference for="SR\Gateway\Api\Response\HandlerInterface"          type="SR\Gateway\Model\Response\NullHandler"/>
-    <preference for="SR\Gateway\Api\Validator\ResultInterface"          type="SR\Gateway\Model\Validator\Result" />
-    <preference for="SR\Gateway\Api\Validator\ResultDataInterface"      type="SR\Gateway\Model\Validator\ResultData"/>
-    <preference for="SR\Gateway\Api\Validator\ValidatorInterface"       type="SR\Gateway\Model\Validator\NullValidator" />
-    <preference for="SR\Gateway\Api\Response\DataModifierInterface"     type="SR\Gateway\Model\Response\NullDataModifier" />
+    <preference for="ByteBencher\Gateway\Api\Config\ConfigInterface"                type="ByteBencher\Gateway\Model\Config\Config" />
+    <preference for="ByteBencher\Gateway\Api\LoggerInterface"                      type="ByteBencher\Gateway\Model\Logger"/>
+    <preference for="ByteBencher\Gateway\Api\ModuleStateInterface"                 type="ByteBencher\Gateway\Model\ModuleState"/>
+    <preference for="ByteBencher\Gateway\Model\GatewayAdapterFactoryInterface"     type="ByteBencher\Gateway\Model\GatewayAdapterFactory" />
+    <preference for="ByteBencher\Gateway\Model\GatewayAdapterPoolInterface"        type="ByteBencher\Gateway\Model\GatewayAdapterPool"/>
+    <preference for="ByteBencher\Gateway\Api\CommandInterface"                    type="ByteBencher\Gateway\Model\Command\GatewayCommand" />
+    <preference for="ByteBencher\Gateway\Api\CommandPoolInterface"                type="ByteBencher\Gateway\Model\Command\CommandPool" />
+    <preference for="ByteBencher\Gateway\Api\Http\Client\ClientInterface"         type="ByteBencher\Gateway\Model\Http\Client\Soap"/>
+    <preference for="ByteBencher\Gateway\Api\Http\Client\ClientFactoryInterface"  type="ByteBencher\Gateway\Model\Http\Client\ClientFactory"/>
+    <preference for="ByteBencher\Gateway\Api\ErrorMapper\MessageMappingDataInterface"   type="ByteBencher\Gateway\Model\ErrorMapper\NullMappingData" />
+    <preference for="ByteBencher\Gateway\Api\ErrorMapper\ErrorMessageMapperInterface"   type="ByteBencher\Gateway\Model\ErrorMapper\ErrorMessageMapper" />
+    <preference for="ByteBencher\Gateway\Api\Http\TransferInterface"             type="ByteBencher\Gateway\Model\Http\Transfer" />
+    <preference for="ByteBencher\Gateway\Api\Http\TransferFactoryInterface"      type="ByteBencher\Gateway\Model\Http\TransferFactory"/>
+    <preference for="ByteBencher\Gateway\Api\Response\HandlerInterface"          type="ByteBencher\Gateway\Model\Response\NullHandler"/>
+    <preference for="ByteBencher\Gateway\Api\Validator\ResultInterface"          type="ByteBencher\Gateway\Model\Validator\Result" />
+    <preference for="ByteBencher\Gateway\Api\Validator\ResultDataInterface"      type="ByteBencher\Gateway\Model\Validator\ResultData"/>
+    <preference for="ByteBencher\Gateway\Api\Validator\ValidatorInterface"       type="ByteBencher\Gateway\Model\Validator\NullValidator" />
+    <preference for="ByteBencher\Gateway\Api\Response\DataModifierInterface"     type="ByteBencher\Gateway\Model\Response\NullDataModifier" />
     <!-- ========================================================= -->
 
 
     <!-- ================ Extension Activity STATE ================ -->
-    <type name="SR\Gateway\Model\ModuleState">
+    <type name="ByteBencher\Gateway\Model\ModuleState">
         <arguments>
-            <argument name="config" xsi:type="object">SR\Gateway\Model\Config\Config</argument>
+            <argument name="config" xsi:type="object">ByteBencher\Gateway\Model\Config\Config</argument>
             <!-- <argument name="forceActive" xsi:type="boolean">true</argument> -->
         </arguments>
     </type>
@@ -39,17 +39,17 @@
 
 
     <!-- ================ Gateway Adapter configuration ================ -->
-    <type name="SR\Gateway\Model\GatewayAdapter">
+    <type name="ByteBencher\Gateway\Model\GatewayAdapter">
         <arguments>
             <!-- existing command pool injection -->
-            <argument name="commandPool"  xsi:type="object">SrGatewayCommandPool</argument>
+            <argument name="commandPool"  xsi:type="object">BbGatewayCommandPool</argument>
         </arguments>
     </type>
     <!-- ============================================================ -->
 
 
     <!-- ================ Commands infrastructure ================ -->
-    <virtualType name="SrGatewayCommandPool" type="SR\Gateway\Model\Command\CommandPool">
+    <virtualType name="BbGatewayCommandPool" type="ByteBencher\Gateway\Model\Command\CommandPool">
         <arguments>
             <argument name="commands" xsi:type="array">
                 <!-- define your commands here -->
@@ -60,44 +60,44 @@
 
 
     <!-- ================ Abstract command, builders & handlers ================ -->
-    <virtualType name="AbstractSrGatewayCommand"      type="SR\Gateway\Model\Command\GatewayCommand">
+    <virtualType name="AbstractBbGatewayCommand"      type="ByteBencher\Gateway\Model\Command\GatewayCommand">
         <arguments>
-            <argument name="requestBuilder"  xsi:type="object">AbstractSrGatewayRequestBuilder</argument>
-            <argument name="transferFactory" xsi:type="object">SR\Gateway\Model\Http\TransferFactory</argument>
-            <argument name="clientFactory"   xsi:type="object">SR\Gateway\Model\Http\Client\ClientFactory</argument>
-            <argument name="validator"       xsi:type="object">SR\Gateway\Model\Validator\NullValidator</argument>
-            <argument name="handler"         xsi:type="object">AbstractSrGatewayHandlerChain</argument>
-            <argument name="dataModifier"     xsi:type="object">AbstractSrGatewayDataModifierChain</argument>
-            <argument name="errorMessageMapper" xsi:type="object">SR\Gateway\Model\ErrorMapper\ErrorMessageMapper</argument>
+            <argument name="requestBuilder"  xsi:type="object">AbstractBbGatewayRequestBuilder</argument>
+            <argument name="transferFactory" xsi:type="object">ByteBencher\Gateway\Model\Http\TransferFactory</argument>
+            <argument name="clientFactory"   xsi:type="object">ByteBencher\Gateway\Model\Http\Client\ClientFactory</argument>
+            <argument name="validator"       xsi:type="object">ByteBencher\Gateway\Model\Validator\NullValidator</argument>
+            <argument name="handler"         xsi:type="object">AbstractBbGatewayHandlerChain</argument>
+            <argument name="dataModifier"     xsi:type="object">AbstractBbGatewayDataModifierChain</argument>
+            <argument name="errorMessageMapper" xsi:type="object">ByteBencher\Gateway\Model\ErrorMapper\ErrorMessageMapper</argument>
         </arguments>
     </virtualType>
 
-    <virtualType name="AbstractSrGatewayRequestBuilder" type="SR\Gateway\Model\Request\BuilderComposite">
+    <virtualType name="AbstractBbGatewayRequestBuilder" type="ByteBencher\Gateway\Model\Request\BuilderComposite">
         <arguments>
             <argument name="builders" xsi:type="array">
-                <item name="store"            xsi:type="string">SR\Gateway\Model\Request\StoreBuilder</item>
-                <item name="api_credentials"  xsi:type="string">SR\Gateway\Model\Request\ApiCredentialsBuilder</item>
-                <item name="api_endpoint"     xsi:type="string">SR\Gateway\Model\Request\ApiEndpointBuilder</item>
-                <item name="request_method"   xsi:type="string">SR\Gateway\Model\Request\RequestMethod\GetRequestMethodBuilder</item>
-                <item name="request_action"   xsi:type="string">SR\Gateway\Model\Request\RequestAction\NullActionBuilder</item>
-                <item name="client_config"    xsi:type="string">SR\Gateway\Model\Request\ClientConfigBuilder</item>
-                <item name="client_headers"   xsi:type="string">SR\Gateway\Model\Request\ClientHeadersBuilder</item>
+                <item name="store"            xsi:type="string">ByteBencher\Gateway\Model\Request\StoreBuilder</item>
+                <item name="api_credentials"  xsi:type="string">ByteBencher\Gateway\Model\Request\ApiCredentialsBuilder</item>
+                <item name="api_endpoint"     xsi:type="string">ByteBencher\Gateway\Model\Request\ApiEndpointBuilder</item>
+                <item name="request_method"   xsi:type="string">ByteBencher\Gateway\Model\Request\RequestMethod\GetRequestMethodBuilder</item>
+                <item name="request_action"   xsi:type="string">ByteBencher\Gateway\Model\Request\RequestAction\NullActionBuilder</item>
+                <item name="client_config"    xsi:type="string">ByteBencher\Gateway\Model\Request\ClientConfigBuilder</item>
+                <item name="client_headers"   xsi:type="string">ByteBencher\Gateway\Model\Request\ClientHeadersBuilder</item>
             </argument>
         </arguments>
     </virtualType>
 
-    <virtualType name="AbstractSrGatewayHandlerChain" type="SR\Gateway\Model\Response\HandlerChain">
+    <virtualType name="AbstractBbGatewayHandlerChain" type="ByteBencher\Gateway\Model\Response\HandlerChain">
         <arguments>
             <argument name="handlers" xsi:type="array">
-                <item name="default" xsi:type="string">SR\Gateway\Model\Response\NullHandler</item>
+                <item name="default" xsi:type="string">ByteBencher\Gateway\Model\Response\NullHandler</item>
             </argument>
         </arguments>
     </virtualType>
 
-    <virtualType name="AbstractSrGatewayDataModifierChain" type="SR\Gateway\Model\Response\DataModifierChain">
+    <virtualType name="AbstractBbGatewayDataModifierChain" type="ByteBencher\Gateway\Model\Response\DataModifierChain">
         <arguments>
             <argument name="modifiers" xsi:type="array">
-                <item name="default" xsi:type="string">SR\Gateway\Model\Response\NullDataModifier</item>
+                <item name="default" xsi:type="string">ByteBencher\Gateway\Model\Response\NullDataModifier</item>
             </argument>
         </arguments>
     </virtualType>
@@ -105,34 +105,34 @@
 
 
     <!-- ================ Logger definitions ================ -->
-    <type name="SR\Gateway\Model\Logger\Logger">
+    <type name="ByteBencher\Gateway\Model\Logger\Logger">
         <arguments>
-            <argument name="name"     xsi:type="string">srgateway</argument>
+            <argument name="name"     xsi:type="string">bbgateway</argument>
             <argument name="handlers" xsi:type="array">
-                <item name="cli"  xsi:type="object">SR\Gateway\Model\Logger\Handler\CliHandler</item>
-                <item name="file" xsi:type="object">SR\Gateway\Model\Logger\Handler\FileHandler</item>
+                <item name="cli"  xsi:type="object">ByteBencher\Gateway\Model\Logger\Handler\CliHandler</item>
+                <item name="file" xsi:type="object">ByteBencher\Gateway\Model\Logger\Handler\FileHandler</item>
             </argument>
         </arguments>
     </type>
-    <type name="SR\Gateway\Model\Logger">
+    <type name="ByteBencher\Gateway\Model\Logger">
         <arguments>
-            <argument name="logger" xsi:type="object">SR\Gateway\Model\Logger\Logger</argument>
-            <argument name="config" xsi:type="object">SR\Gateway\Model\Config\Config</argument>
+            <argument name="logger" xsi:type="object">ByteBencher\Gateway\Model\Logger\Logger</argument>
+            <argument name="config" xsi:type="object">ByteBencher\Gateway\Model\Config\Config</argument>
         </arguments>
     </type>
-    <virtualType name="AbstractSrGatewayLogger" type="SR\Gateway\Model\Logger" />
+    <virtualType name="AbstractBbGatewayLogger" type="ByteBencher\Gateway\Model\Logger" />
     <!-- ===================================================== -->
 
 
     <!-- ================ Gateway HTTP Client definitions ================ -->
-    <type name="SR\Gateway\Model\Http\Client\Rest">
+    <type name="ByteBencher\Gateway\Model\Http\Client\Rest">
         <arguments>
-            <argument name="converter" xsi:type="object">SR\Gateway\Model\Http\Client\Converter\ObjectToArrayRestConverter</argument>
+            <argument name="converter" xsi:type="object">ByteBencher\Gateway\Model\Http\Client\Converter\ObjectToArrayRestConverter</argument>
         </arguments>
     </type>
-    <type name="SR\Gateway\Model\Http\Client\Soap">
+    <type name="ByteBencher\Gateway\Model\Http\Client\Soap">
         <arguments>
-            <argument name="converter" xsi:type="object">SR\Gateway\Model\Http\Client\Converter\ObjectToArraySoapConverter</argument>
+            <argument name="converter" xsi:type="object">ByteBencher\Gateway\Model\Http\Client\Converter\ObjectToArraySoapConverter</argument>
         </arguments>
     </type>
     <!-- ===================================================== -->

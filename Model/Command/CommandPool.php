@@ -1,16 +1,16 @@
 <?php
 /*
- * Copyright © 2022 Studio Raz. All rights reserved.
+ * Copyright © 2022 ByteBencher. All rights reserved.
  * See LICENCE file for license details.
  */
 
-namespace SR\Gateway\Model\Command;
+namespace ByteBencher\Gateway\Model\Command;
 
 use Magento\Framework\Exception\NotFoundException;
 use Magento\Framework\ObjectManager\TMapFactory;
 use Magento\Framework\Phrase;
-use SR\Gateway\Api\CommandInterface;
-use SR\Gateway\Api\CommandPoolInterface;
+use ByteBencher\Gateway\Api\CommandInterface;
+use ByteBencher\Gateway\Api\CommandPoolInterface;
 
 class CommandPool implements CommandPoolInterface
 {

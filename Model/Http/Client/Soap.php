@@ -1,19 +1,19 @@
 <?php
 /*
- * Copyright © 2022 Studio Raz. All rights reserved.
+ * Copyright © 2022 ByteBencher. All rights reserved.
  * See LICENCE file for license details.
  */
 
-namespace SR\Gateway\Model\Http\Client;
+namespace ByteBencher\Gateway\Model\Http\Client;
 
 use Magento\Framework\Phrase;
 use Magento\Framework\Webapi\Soap\ClientFactory as ClientAdapterFactory;
-use SR\Gateway\Api\Http\Client\ClientInterface;
-use SR\Gateway\Api\Http\ConverterInterface;
-use SR\Gateway\Api\Http\TransferInterface;
-use SR\Gateway\Api\LoggerInterface;
-use SR\Gateway\Exception\ClientException;
-use SR\Gateway\Model\Request\ClientConfigBuilder;
+use ByteBencher\Gateway\Api\Http\Client\ClientInterface;
+use ByteBencher\Gateway\Api\Http\ConverterInterface;
+use ByteBencher\Gateway\Api\Http\TransferInterface;
+use ByteBencher\Gateway\Api\LoggerInterface;
+use ByteBencher\Gateway\Exception\ClientException;
+use ByteBencher\Gateway\Model\Request\ClientConfigBuilder;
 
 class Soap implements ClientInterface
 {

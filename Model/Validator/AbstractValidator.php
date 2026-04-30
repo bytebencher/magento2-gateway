@@ -1,16 +1,16 @@
 <?php
 /*
- * Copyright © 2022 Studio Raz. All rights reserved.
+ * Copyright © 2022 ByteBencher. All rights reserved.
  * See LICENCE file for license details.
  */
 
-namespace SR\Gateway\Model\Validator;
+namespace ByteBencher\Gateway\Model\Validator;
 
-use SR\Gateway\Api\Validator\ResultDataInterface;
-use SR\Gateway\Api\Validator\ResultDataInterfaceFactory;
-use SR\Gateway\Api\Validator\ResultInterface;
-use SR\Gateway\Api\Validator\ResultInterfaceFactory;
-use SR\Gateway\Api\Validator\ValidatorInterface;
+use ByteBencher\Gateway\Api\Validator\ResultDataInterface;
+use ByteBencher\Gateway\Api\Validator\ResultDataInterfaceFactory;
+use ByteBencher\Gateway\Api\Validator\ResultInterface;
+use ByteBencher\Gateway\Api\Validator\ResultInterfaceFactory;
+use ByteBencher\Gateway\Api\Validator\ValidatorInterface;
 
 abstract class AbstractValidator implements ValidatorInterface
 {
@@ -42,7 +42,7 @@ abstract class AbstractValidator implements ValidatorInterface
      * Returns list of errors (Messages or corresponding Codes)
      *
      * NOTE: put Error Codes into messages.
-     * @see \SR\Gateway\Model\ErrorMapper\ErrorMappingData to manage Mappings
+     * @see \ByteBencher\Gateway\Model\ErrorMapper\ErrorMappingData to manage Mappings
      *
      * @param array $rawResponse
      *

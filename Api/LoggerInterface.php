@@ -1,16 +1,16 @@
 <?php
 /*
- * Copyright © 2022 Studio Raz. All rights reserved.
+ * Copyright © 2022 ByteBencher. All rights reserved.
  * See LICENCE file for license details.
  */
 
-namespace SR\Gateway\Api;
+namespace ByteBencher\Gateway\Api;
 
 use Magento\Framework\Phrase;
 
 /**
  * Interface LoggerInterface
- * @package SR\Gateway\Api
+ * @package ByteBencher\Gateway\Api
  */
 interface LoggerInterface
 {

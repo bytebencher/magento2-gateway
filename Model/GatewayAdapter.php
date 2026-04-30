@@ -1,19 +1,19 @@
 <?php
 /*
- * Copyright © 2022 Studio Raz. All rights reserved.
+ * Copyright © 2022 ByteBencher. All rights reserved.
  * See LICENCE file for license details.
  */
 
-namespace SR\Gateway\Model;
+namespace ByteBencher\Gateway\Model;
 
 use Magento\Framework\Exception\NotFoundException;
 use Magento\Framework\Phrase;
-use SR\Gateway\Api\CommandInterface;
-use SR\Gateway\Api\CommandPoolInterface;
-use SR\Gateway\Api\Config\ConfigInterface;
-use SR\Gateway\Api\Validator\ResultInterface;
-use SR\Gateway\Exception\CommandException;
-use SR\Gateway\Model\Config\Config;
+use ByteBencher\Gateway\Api\CommandInterface;
+use ByteBencher\Gateway\Api\CommandPoolInterface;
+use ByteBencher\Gateway\Api\Config\ConfigInterface;
+use ByteBencher\Gateway\Api\Validator\ResultInterface;
+use ByteBencher\Gateway\Exception\CommandException;
+use ByteBencher\Gateway\Model\Config\Config;
 
 class GatewayAdapter
 {

@@ -1,19 +1,19 @@
 <?php
 /*
- * Copyright © 2022 Studio Raz. All rights reserved.
+ * Copyright © 2022 ByteBencher. All rights reserved.
  * See LICENCE file for license details.
  */
 
-namespace SR\Gateway\Model\Config;
+namespace ByteBencher\Gateway\Model\Config;
 
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Store\Model\ScopeInterface;
-use SR\Gateway\Api\Config\ConfigInterface;
-use SR\Gateway\Model\System\Config\Source\Mode as ApiMode;
+use ByteBencher\Gateway\Api\Config\ConfigInterface;
+use ByteBencher\Gateway\Model\System\Config\Source\Mode as ApiMode;
 
 class Config implements ConfigInterface
 {
-    public const EXT_ALIAS = 'srgateway';
+    public const EXT_ALIAS = 'bbgateway';
 
     /**
      * Is used to init $this->pathPattern

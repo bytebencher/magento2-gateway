@@ -1,16 +1,16 @@
 <?php
 /*
- * Copyright © 2022 Studio Raz. All rights reserved.
+ * Copyright © 2022 ByteBencher. All rights reserved.
  * See LICENCE file for license details.
  */
 
-namespace SR\Gateway\Api\Response;
+namespace ByteBencher\Gateway\Api\Response;
 
-use SR\Gateway\Exception\ResponseHandlerException;
+use ByteBencher\Gateway\Exception\ResponseHandlerException;
 
 /**
  * Interface HandlerInterface
- * @package SR\Gateway\Api\Response
+ * @package ByteBencher\Gateway\Api\Response
  */
 interface HandlerInterface
 {

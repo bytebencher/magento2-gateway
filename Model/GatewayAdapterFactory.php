@@ -1,16 +1,16 @@
 <?php
 /*
- * Copyright © 2022 Studio Raz. All rights reserved.
+ * Copyright © 2022 ByteBencher. All rights reserved.
  * See LICENCE file for license details.
  */
 
 declare(strict_types=1);
 
-namespace SR\Gateway\Model;
+namespace ByteBencher\Gateway\Model;
 
 use Magento\Framework\ObjectManagerInterface;
 use Magento\Framework\Phrase;
-use SR\Gateway\Exception\LocalizedException;
+use ByteBencher\Gateway\Exception\LocalizedException;
 
 class GatewayAdapterFactory implements GatewayAdapterFactoryInterface
 {

@@ -1,16 +1,16 @@
 <?php
 /*
- * Copyright © 2022 Studio Raz. All rights reserved.
+ * Copyright © 2022 ByteBencher. All rights reserved.
  * See LICENCE file for license details.
  */
 
-namespace SR\Gateway\Model;
+namespace ByteBencher\Gateway\Model;
 
 use Psr\Log\LoggerInterface as PsrLoggerInterface;
-use SR\Gateway\Api\Config\ConfigInterface;
-use SR\Gateway\Api\LoggerInterface;
-use SR\Gateway\Model\Config\Config;
-use SR\Gateway\Model\Logger\Handler\DbHandler;
+use ByteBencher\Gateway\Api\Config\ConfigInterface;
+use ByteBencher\Gateway\Api\LoggerInterface;
+use ByteBencher\Gateway\Model\Config\Config;
+use ByteBencher\Gateway\Model\Logger\Handler\DbHandler;
 
 class Logger implements LoggerInterface
 {

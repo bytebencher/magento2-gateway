@@ -1,13 +1,13 @@
 <?php
 /*
- * Copyright © 2022 Studio Raz. All rights reserved.
+ * Copyright © 2022 ByteBencher. All rights reserved.
  * See LICENCE file for license details.
  */
 
-namespace SR\Gateway\Model\ErrorMapper;
+namespace ByteBencher\Gateway\Model\ErrorMapper;
 
-use SR\Gateway\Api\ErrorMapper\ErrorMessageMapperInterface;
-use SR\Gateway\Api\ErrorMapper\MessageMappingDataInterface;
+use ByteBencher\Gateway\Api\ErrorMapper\ErrorMessageMapperInterface;
+use ByteBencher\Gateway\Api\ErrorMapper\MessageMappingDataInterface;
 
 class ErrorMessageMapper implements ErrorMessageMapperInterface
 {

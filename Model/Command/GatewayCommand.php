@@ -1,31 +1,31 @@
 <?php
 /*
- * Copyright © 2022 Studio Raz. All rights reserved.
+ * Copyright © 2022 ByteBencher. All rights reserved.
  * See LICENCE file for license details.
  */
 
-namespace SR\Gateway\Model\Command;
+namespace ByteBencher\Gateway\Model\Command;
 
 use Magento\Framework\Phrase;
-use SR\Gateway\Api\CommandInterface;
-use SR\Gateway\Api\ErrorMapper\ErrorMessageMapperInterface;
-use SR\Gateway\Api\Http\Client\ClientFactoryInterface;
-use SR\Gateway\Api\Http\TransferFactoryInterface;
-use SR\Gateway\Api\LoggerInterface;
-use SR\Gateway\Api\Request\BuilderInterface;
-use SR\Gateway\Api\Response\HandlerInterface;
-use SR\Gateway\Api\Validator\ResultInterface;
-use SR\Gateway\Api\Validator\ValidatorInterface;
-use SR\Gateway\Exception\ClientException;
-use SR\Gateway\Exception\CommandException;
-use SR\Gateway\Exception\RequestBuilderException;
-use SR\Gateway\Exception\ResponseHandlerException;
-use SR\Gateway\Exception\TransferBuilderException;
-use SR\Gateway\Api\Response\DataModifierInterface;
+use ByteBencher\Gateway\Api\CommandInterface;
+use ByteBencher\Gateway\Api\ErrorMapper\ErrorMessageMapperInterface;
+use ByteBencher\Gateway\Api\Http\Client\ClientFactoryInterface;
+use ByteBencher\Gateway\Api\Http\TransferFactoryInterface;
+use ByteBencher\Gateway\Api\LoggerInterface;
+use ByteBencher\Gateway\Api\Request\BuilderInterface;
+use ByteBencher\Gateway\Api\Response\HandlerInterface;
+use ByteBencher\Gateway\Api\Validator\ResultInterface;
+use ByteBencher\Gateway\Api\Validator\ValidatorInterface;
+use ByteBencher\Gateway\Exception\ClientException;
+use ByteBencher\Gateway\Exception\CommandException;
+use ByteBencher\Gateway\Exception\RequestBuilderException;
+use ByteBencher\Gateway\Exception\ResponseHandlerException;
+use ByteBencher\Gateway\Exception\TransferBuilderException;
+use ByteBencher\Gateway\Api\Response\DataModifierInterface;
 
 /**
  * Class GatewayCommand
- * @package SR\Gateway\Model\Command
+ * @package ByteBencher\Gateway\Model\Command
  */
 class GatewayCommand implements CommandInterface
 {

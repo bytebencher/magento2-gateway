@@ -1,16 +1,16 @@
 <?php
 /*
- * Copyright © 2022 Studio Raz. All rights reserved.
+ * Copyright © 2022 ByteBencher. All rights reserved.
  * See LICENCE file for license details.
  */
 
-namespace SR\Gateway\Api\Http\Client;
+namespace ByteBencher\Gateway\Api\Http\Client;
 
-use SR\Gateway\Exception\ClientException;
+use ByteBencher\Gateway\Exception\ClientException;
 
 /**
  * Interface ClientFactoryInterface
- * @package SR\Gateway\Api\Http\Client
+ * @package ByteBencher\Gateway\Api\Http\Client
  */
 interface ClientFactoryInterface
 {

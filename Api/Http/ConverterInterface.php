@@ -1,12 +1,12 @@
 <?php
 /*
- * Copyright © 2022 Studio Raz. All rights reserved.
+ * Copyright © 2022 ByteBencher. All rights reserved.
  * See LICENCE file for license details.
  */
 
-namespace SR\Gateway\Api\Http;
+namespace ByteBencher\Gateway\Api\Http;
 
-use SR\Gateway\Exception\ConverterException;
+use ByteBencher\Gateway\Exception\ConverterException;
 
 interface ConverterInterface
 {

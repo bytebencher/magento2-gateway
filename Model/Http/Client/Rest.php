@@ -1,20 +1,20 @@
 <?php
 /*
- * Copyright © 2022 Studio Raz. All rights reserved.
+ * Copyright © 2022 ByteBencher. All rights reserved.
  * See LICENCE file for license details.
  */
 
-namespace SR\Gateway\Model\Http\Client;
+namespace ByteBencher\Gateway\Model\Http\Client;
 
 use Laminas\Http\Request as HttpRequest;
 use Magento\Framework\Phrase;
-use SR\Gateway\Api\Http\Client\ClientInterface;
-use SR\Gateway\Api\Http\ConverterInterface;
-use SR\Gateway\Api\Http\TransferInterface;
-use SR\Gateway\Api\LoggerInterface;
-use SR\Gateway\Exception\ClientException;
-use SR\Gateway\Model\Http\Adapter\CurlAdapterFactory as ClientAdapterFactory;
-use SR\Gateway\Model\Request\ClientConfigBuilder;
+use ByteBencher\Gateway\Api\Http\Client\ClientInterface;
+use ByteBencher\Gateway\Api\Http\ConverterInterface;
+use ByteBencher\Gateway\Api\Http\TransferInterface;
+use ByteBencher\Gateway\Api\LoggerInterface;
+use ByteBencher\Gateway\Exception\ClientException;
+use ByteBencher\Gateway\Model\Http\Adapter\CurlAdapterFactory as ClientAdapterFactory;
+use ByteBencher\Gateway\Model\Request\ClientConfigBuilder;
 
 class Rest implements ClientInterface
 {

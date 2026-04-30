@@ -1,13 +1,13 @@
 <?php
 /*
- * Copyright © 2022 Studio Raz. All rights reserved.
+ * Copyright © 2022 ByteBencher. All rights reserved.
  * See LICENCE file for license details.
  */
 
-namespace SR\Gateway\Model\Validator;
+namespace ByteBencher\Gateway\Model\Validator;
 
 use Magento\Framework\DataObject;
-use SR\Gateway\Api\Validator\ResultDataInterface;
+use ByteBencher\Gateway\Api\Validator\ResultDataInterface;
 
 class ResultData implements ResultDataInterface
 {

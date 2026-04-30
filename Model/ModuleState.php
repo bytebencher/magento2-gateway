@@ -1,13 +1,13 @@
 <?php
 /*
- * Copyright © 2022 Studio Raz. All rights reserved.
+ * Copyright © 2022 ByteBencher. All rights reserved.
  * See LICENCE file for license details.
  */
 
-namespace SR\Gateway\Model;
+namespace ByteBencher\Gateway\Model;
 
-use SR\Gateway\Api\Config\ConfigInterface;
-use SR\Gateway\Api\ModuleStateInterface;
+use ByteBencher\Gateway\Api\Config\ConfigInterface;
+use ByteBencher\Gateway\Api\ModuleStateInterface;
 
 class ModuleState implements ModuleStateInterface
 {

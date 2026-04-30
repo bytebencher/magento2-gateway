@@ -1,16 +1,16 @@
 <?php
 /*
- * Copyright © 2022 Studio Raz. All rights reserved.
+ * Copyright © 2022 ByteBencher. All rights reserved.
  * See LICENCE file for license details.
  */
 
-namespace SR\Gateway\Api\Request;
+namespace ByteBencher\Gateway\Api\Request;
 
-use SR\Gateway\Exception\RequestBuilderException;
+use ByteBencher\Gateway\Exception\RequestBuilderException;
 
 /**
  * Interface BuilderInterface
- * @package SR\Gateway\Api\Request
+ * @package ByteBencher\Gateway\Api\Request
  */
 interface BuilderInterface
 {
