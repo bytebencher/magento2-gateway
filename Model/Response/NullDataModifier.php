@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace SR\Gateway\Model\Response;
+namespace ByteBencher\Gateway\Model\Response;
 
-use SR\Gateway\Api\Response\DataModifierInterface;
-use SR\Gateway\Api\Validator\ResultInterface;
-use SR\Gateway\Api\Validator\ResultDataInterface;
+use ByteBencher\Gateway\Api\Response\DataModifierInterface;
+use ByteBencher\Gateway\Api\Validator\ResultInterface;
+use ByteBencher\Gateway\Api\Validator\ResultDataInterface;
 
 class NullDataModifier implements DataModifierInterface
 {

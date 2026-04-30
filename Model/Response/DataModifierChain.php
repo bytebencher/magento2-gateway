@@ -1,12 +1,12 @@
 <?php
 declare(strict_types=1);
 
-namespace SR\Gateway\Model\Response;
+namespace ByteBencher\Gateway\Model\Response;
 
 use Magento\Framework\ObjectManager\TMapFactory;
-use SR\Gateway\Api\Config\ConfigInterface;
-use SR\Gateway\Api\Response\DataModifierInterface;
-use SR\Gateway\Api\Validator\ResultInterface;
+use ByteBencher\Gateway\Api\Config\ConfigInterface;
+use ByteBencher\Gateway\Api\Response\DataModifierInterface;
+use ByteBencher\Gateway\Api\Validator\ResultInterface;
 
 class DataModifierChain implements DataModifierInterface
 {

@@ -1,15 +1,15 @@
 <?php
 /*
- * Copyright © 2022 Studio Raz. All rights reserved.
+ * Copyright © 2022 ByteBencher. All rights reserved.
  * See LICENCE file for license details.
  */
 
-namespace SR\Gateway\Model\Request;
+namespace ByteBencher\Gateway\Model\Request;
 
 use Magento\Framework\ObjectManager\TMapFactory;
 use Magento\Framework\ObjectManagerInterface;
-use SR\Gateway\Api\Config\ConfigInterface;
-use SR\Gateway\Api\Request\BuilderInterface;
+use ByteBencher\Gateway\Api\Config\ConfigInterface;
+use ByteBencher\Gateway\Api\Request\BuilderInterface;
 
 class BuilderComposite implements BuilderInterface
 {

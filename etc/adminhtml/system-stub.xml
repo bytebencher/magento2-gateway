@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!--
-  ~ Copyright © 2022 Studio Raz. All rights reserved.
+  ~ Copyright © 2022 ByteBencher. All rights reserved.
   ~ See LICENCE file for license details.
   -->
 
@@ -31,7 +31,7 @@
 
                 <field id="mode" type="select" translate="label" sortOrder="200" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
                     <label>Current Mode</label>
-                    <source_model>SR\Gateway\Model\System\Config\Source\Mode</source_model>
+                    <source_model>ByteBencher\Gateway\Model\System\Config\Source\Mode</source_model>
                 </field>
 
                 <field id="api_username_production" type="text" translate="label comment" sortOrder="300" showInDefault="1" showInWebsite="0" showInStore="0">
@@ -83,7 +83,7 @@
 
                 <field id="http_client" translate="label comment" type="select" sortOrder="600" showInDefault="1" showInWebsite="0" showInStore="0">
                     <label>Http Client</label>
-                    <source_model>SR\Gateway\Model\System\Config\Source\HttpClient</source_model>
+                    <source_model>ByteBencher\Gateway\Model\System\Config\Source\HttpClient</source_model>
                     <comment><![CDATA[Client to interact with External service. (SOAP, REST etc)]]></comment>
                 </field>
 

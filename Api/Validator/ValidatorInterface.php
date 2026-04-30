@@ -1,14 +1,14 @@
 <?php
 /*
- * Copyright © 2022 Studio Raz. All rights reserved.
+ * Copyright © 2022 ByteBencher. All rights reserved.
  * See LICENCE file for license details.
  */
 
-namespace SR\Gateway\Api\Validator;
+namespace ByteBencher\Gateway\Api\Validator;
 
 /**
  * Interface ValidatorInterface
- * @package SR\Gateway\Api\Validator
+ * @package ByteBencher\Gateway\Api\Validator
  */
 interface ValidatorInterface
 {

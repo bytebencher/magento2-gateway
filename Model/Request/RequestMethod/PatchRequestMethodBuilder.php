@@ -1,13 +1,13 @@
 <?php
 /*
- * Copyright © 2022 Studio Raz. All rights reserved.
+ * Copyright © 2022 ByteBencher. All rights reserved.
  * See LICENCE file for license details.
  */
 
-namespace SR\Gateway\Model\Request\RequestMethod;
+namespace ByteBencher\Gateway\Model\Request\RequestMethod;
 
 use Laminas\Http\Request;
-use SR\Gateway\Model\Request\AbstractClientBuilder;
+use ByteBencher\Gateway\Model\Request\AbstractClientBuilder;
 
 class PatchRequestMethodBuilder extends AbstractClientBuilder
 {

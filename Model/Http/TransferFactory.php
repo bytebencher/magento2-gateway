@@ -1,13 +1,13 @@
 <?php
 /*
- * Copyright © 2022 Studio Raz. All rights reserved.
+ * Copyright © 2022 ByteBencher. All rights reserved.
  * See LICENCE file for license details.
  */
 
-namespace SR\Gateway\Model\Http;
+namespace ByteBencher\Gateway\Model\Http;
 
-use SR\Gateway\Model\Request\AbstractClientBuilder;
-use SR\Gateway\Model\Request\ApiCredentialsBuilder;
+use ByteBencher\Gateway\Model\Request\AbstractClientBuilder;
+use ByteBencher\Gateway\Model\Request\ApiCredentialsBuilder;
 
 class TransferFactory extends AbstractTransferFactory
 {

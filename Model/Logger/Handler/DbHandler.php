@@ -1,16 +1,16 @@
 <?php
 /*
- * Copyright © 2022 Studio Raz. All rights reserved.
+ * Copyright © 2022 ByteBencher. All rights reserved.
  * See LICENCE file for license details.
  */
 
-namespace SR\Gateway\Model\Logger\Handler;
+namespace ByteBencher\Gateway\Model\Logger\Handler;
 
 use Magento\Framework\App\ResourceConnection;
 use Magento\Framework\DB\Adapter\AdapterInterface;
 use Monolog\Handler\AbstractProcessingHandler;
-use SR\Gateway\Api\Config\ConfigInterface;
-use SR\Gateway\Model\Config\Config;
+use ByteBencher\Gateway\Api\Config\ConfigInterface;
+use ByteBencher\Gateway\Model\Config\Config;
 
 class DbHandler extends AbstractProcessingHandler
 {

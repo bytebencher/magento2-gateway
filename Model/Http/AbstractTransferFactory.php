@@ -1,17 +1,17 @@
 <?php
 /*
- * Copyright © 2022 Studio Raz. All rights reserved.
+ * Copyright © 2022 ByteBencher. All rights reserved.
  * See LICENCE file for license details.
  */
 
-namespace SR\Gateway\Model\Http;
+namespace ByteBencher\Gateway\Model\Http;
 
 use Laminas\Http\Request as HttpRequest;
-use SR\Gateway\Api\Config\ConfigInterface;
-use SR\Gateway\Api\Http\TransferFactoryInterface;
-use SR\Gateway\Api\Http\TransferInterface;
-use SR\Gateway\Exception\TransferBuilderException;
-use SR\Gateway\Model\Request\AbstractClientBuilder;
+use ByteBencher\Gateway\Api\Config\ConfigInterface;
+use ByteBencher\Gateway\Api\Http\TransferFactoryInterface;
+use ByteBencher\Gateway\Api\Http\TransferInterface;
+use ByteBencher\Gateway\Exception\TransferBuilderException;
+use ByteBencher\Gateway\Model\Request\AbstractClientBuilder;
 
 abstract class AbstractTransferFactory implements TransferFactoryInterface
 {

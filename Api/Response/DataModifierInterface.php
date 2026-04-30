@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace SR\Gateway\Api\Response;
+namespace ByteBencher\Gateway\Api\Response;
 
-use SR\Gateway\Api\Validator\ResultInterface;
+use ByteBencher\Gateway\Api\Validator\ResultInterface;
 
 interface DataModifierInterface
 {

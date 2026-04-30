@@ -1,12 +1,12 @@
 <?php
 /*
- * Copyright © 2022 Studio Raz. All rights reserved.
+ * Copyright © 2022 ByteBencher. All rights reserved.
  * See LICENCE file for license details.
  */
 
-namespace SR\Gateway\Model\Http\Client\Converter;
+namespace ByteBencher\Gateway\Model\Http\Client\Converter;
 
-use SR\Gateway\Api\Http\ConverterInterface;
+use ByteBencher\Gateway\Api\Http\ConverterInterface;
 
 class ObjectToArraySoapConverter implements ConverterInterface
 {

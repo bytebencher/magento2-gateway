@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!--
-  ~ Copyright © 2022 Studio Raz. All rights reserved.
+  ~ Copyright © 2022 ByteBencher. All rights reserved.
   ~ See LICENCE file for license details.
   -->
 
@@ -10,8 +10,8 @@
         <YOUR_SECTION_NAME>
             <general>
                 <active>0</active>
-                <mode>2</mode><!-- @see: \SR\Gateway\Model\System\Config\Source\Mode  -->
-                <http_client>2</http_client><!-- @see: \SR\Gateway\Model\System\Config\Source\HttpClient  -->
+                <mode>2</mode><!-- @see: \ByteBencher\Gateway\Model\System\Config\Source\Mode  -->
+                <http_client>2</http_client><!-- @see: \ByteBencher\Gateway\Model\System\Config\Source\HttpClient  -->
             </general>
         </YOUR_SECTION_NAME>
     </default>

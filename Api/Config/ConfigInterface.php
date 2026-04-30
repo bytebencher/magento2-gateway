@@ -1,14 +1,14 @@
 <?php
 /*
- * Copyright © 2022 Studio Raz. All rights reserved.
+ * Copyright © 2022 ByteBencher. All rights reserved.
  * See LICENCE file for license details.
  */
 
-namespace SR\Gateway\Api\Config;
+namespace ByteBencher\Gateway\Api\Config;
 
 /**
  * Interface ConfigInterface
- * @package SR\Gateway\Api\Config
+ * @package ByteBencher\Gateway\Api\Config
  */
 interface ConfigInterface
 {

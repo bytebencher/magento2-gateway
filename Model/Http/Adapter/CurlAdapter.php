@@ -1,10 +1,10 @@
 <?php
 /*
- * Copyright © 2022 Studio Raz. All rights reserved.
+ * Copyright © 2022 ByteBencher. All rights reserved.
  * See LICENCE file for license details.
  */
 
-namespace SR\Gateway\Model\Http\Adapter;
+namespace ByteBencher\Gateway\Model\Http\Adapter;
 
 use Laminas\Http\Headers as HttpHeaders;
 use Laminas\Http\Response as HttpResponse;

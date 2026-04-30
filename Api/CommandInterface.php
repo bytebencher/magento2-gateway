@@ -1,24 +1,24 @@
 <?php
 /*
- * Copyright © 2022 Studio Raz. All rights reserved.
+ * Copyright © 2022 ByteBencher. All rights reserved.
  * See LICENCE file for license details.
  */
 
-namespace SR\Gateway\Api;
+namespace ByteBencher\Gateway\Api;
 
-use SR\Gateway\Api\Validator\ResultInterface;
-use SR\Gateway\Exception\CommandException;
+use ByteBencher\Gateway\Api\Validator\ResultInterface;
+use ByteBencher\Gateway\Exception\CommandException;
 
 /**
  * Interface CommandInterface
- * @package SR\Gateway\Api
+ * @package ByteBencher\Gateway\Api
  */
 interface CommandInterface
 {
     /**#@+
      * Arguments for Command execution
      */
-    public const ARGUMENT_CONFIG = 'config';// \SR\Gateway\Api\Config\ConfigInterface;
+    public const ARGUMENT_CONFIG = 'config';// \ByteBencher\Gateway\Api\Config\ConfigInterface;
     public const ARGUMENT_SUBJECT = 'subject';
     /**#@- */
 

@@ -1,16 +1,16 @@
 <?php
 /*
- * Copyright © 2022 Studio Raz. All rights reserved.
+ * Copyright © 2022 ByteBencher. All rights reserved.
  * See LICENCE file for license details.
  */
 
-namespace SR\Gateway\Api\Http;
+namespace ByteBencher\Gateway\Api\Http;
 
-use SR\Gateway\Exception\TransferBuilderException;
+use ByteBencher\Gateway\Exception\TransferBuilderException;
 
 /**
  * Interface TransferFactoryInterface
- * @package SR\Gateway\Api\Http
+ * @package ByteBencher\Gateway\Api\Http
  */
 interface TransferFactoryInterface
 {

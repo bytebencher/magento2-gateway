@@ -1,12 +1,12 @@
 <?php
 /*
- * Copyright © 2022 Studio Raz. All rights reserved.
+ * Copyright © 2022 ByteBencher. All rights reserved.
  * See LICENCE file for license details.
  */
 
-namespace SR\Gateway\Model\Response;
+namespace ByteBencher\Gateway\Model\Response;
 
-use SR\Gateway\Api\Response\HandlerInterface;
+use ByteBencher\Gateway\Api\Response\HandlerInterface;
 
 class NullHandler implements HandlerInterface
 {
